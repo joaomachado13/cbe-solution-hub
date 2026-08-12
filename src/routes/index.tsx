@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/layout/SiteLayout";
-import { SectionPlaceholder } from "@/components/layout/SectionPlaceholder";
 import heroImage from "@/assets/hero-quadros.jpg";
 
 export const Route = createFileRoute("/")({
