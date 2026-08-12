@@ -1,4 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  Ruler,
+  Building2,
+  ShieldCheck,
+  LifeBuoy,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { SectionPlaceholder } from "@/components/layout/SectionPlaceholder";
