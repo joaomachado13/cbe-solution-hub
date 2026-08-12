@@ -64,14 +64,68 @@ function Index() {
         </div>
       </section>
 
-      <SectionPlaceholder
-        title="Visão geral da solução"
-        note="Conteúdo desta seção será definido em uma próxima etapa."
-      />
-      <SectionPlaceholder
-        title="Aplicações e diferenciais"
-        note="Conteúdo desta seção será definido em uma próxima etapa."
-      />
+      <section className="border-b border-border bg-background">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:py-16">
+          <h2 className="rule-brand font-display text-2xl text-primary sm:text-3xl">
+            Visão geral da solução
+          </h2>
+          <p className="mt-6 max-w-3xl text-base text-muted-foreground">
+            A CBE não trabalha com quadros de catálogo padronizados. Cada painel é projetado e
+            montado para a necessidade real da instalação, com dimensionamento de circuitos,
+            barramentos e proteções definidos caso a caso. O atendimento cobre desde instalações
+            residenciais e comerciais até operações industriais de grande porte.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Entre os clientes atendidos</span>
+            <span className="h-4 w-px bg-border" aria-hidden="true" />
+            <span className="font-display tracking-wide text-foreground/80">BRF</span>
+            <span className="font-display tracking-wide text-foreground/80">Syngenta</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border bg-surface">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:py-16">
+          <h2 className="rule-brand font-display text-2xl text-primary sm:text-3xl">
+            Aplicações e diferenciais
+          </h2>
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <Ruler className="size-6 text-brand" strokeWidth={1.5} aria-hidden="true" />
+              <h3 className="mt-4 font-display text-lg text-primary">Projeto sob medida</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Montagem dimensionada para a sua carga, não variação de catálogo.
+              </p>
+            </div>
+            <div>
+              <Building2 className="size-6 text-brand" strokeWidth={1.5} aria-hidden="true" />
+              <h3 className="mt-4 font-display text-lg text-primary">Todos os portes</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Residencial, comercial e industrial, do comando à distribuição principal.
+              </p>
+            </div>
+            <div>
+              <ShieldCheck className="size-6 text-brand" strokeWidth={1.5} aria-hidden="true" />
+              <h3 className="mt-4 font-display text-lg text-primary">Conformidade normativa</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Projeto e execução conforme normas técnicas vigentes e boas práticas.
+              </p>
+            </div>
+            <div>
+              <LifeBuoy className="size-6 text-brand" strokeWidth={1.5} aria-hidden="true" />
+              <h3 className="mt-4 font-display text-lg text-primary">Suporte após a entrega</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Acompanhamento técnico depois da entrega e partida do painel na obra.
+              </p>
+            </div>
+          </div>
+          <div className="mt-10">
+            <Button asChild size="lg" variant="outline">
+              <Link to="/quadros-eletricos">Veja as soluções em quadros elétricos</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </SiteLayout>
   );
 }
