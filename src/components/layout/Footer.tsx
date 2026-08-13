@@ -6,7 +6,7 @@ import logoCbe from "@/assets/logo-cbe.png";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t-4 border-brand bg-primary text-primary-foreground">
+    <footer className="mt-20 border-t-4 border-brand bg-primary text-primary-foreground">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-3">
         <div>
           <Link
@@ -15,17 +15,17 @@ export function Footer() {
           >
             <img
               src={logoCbe}
-              alt="Correa Barbosa Engenharia"
+              alt="Corrêa Barbosa Engenharia"
               className="h-10 w-auto object-contain"
             />
           </Link>
-          <p className="mt-4 max-w-xs text-sm text-primary-foreground/75">
-            Projeto e montagem de quadros eletricos sob medida para industria, comercio e obras.
+          <p className="mt-4 max-w-xs text-sm text-primary-foreground/75 leading-relaxed">
+            Projeto e montagem de quadros elétricos sob medida para indústria, comércio e obras.
           </p>
         </div>
 
         <div>
-          <p className="text-sm font-semibold uppercase tracking-widest">Navegacao</p>
+          <p className="text-sm font-semibold uppercase tracking-widest">Navegação</p>
           <ul className="mt-4 space-y-2 text-sm text-primary-foreground/80">
             <li>
               <Link to="/" className="hover:text-primary-foreground">
@@ -34,17 +34,17 @@ export function Footer() {
             </li>
             <li>
               <Link to="/sobre-nos" className="hover:text-primary-foreground">
-                Sobre Nos
+                Sobre Nós
               </Link>
             </li>
             <li>
               <Link to="/quadros-eletricos" className="hover:text-primary-foreground">
-                Quadros Eletricos
+                Quadros Elétricos
               </Link>
             </li>
             <li>
               <Link to="/orcamento" className="hover:text-primary-foreground">
-                Orcamento
+                Orçamento
               </Link>
             </li>
             <li>
@@ -56,8 +56,8 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-sm font-semibold uppercase tracking-widest">Atendimento e Redes</p>
-          <p className="mt-4 flex items-start gap-2 text-sm text-primary-foreground/80">
+          <p className="text-sm font-semibold uppercase tracking-widest">Atendimento & Redes</p>
+          <p className="mt-4 flex items-start gap-2 text-sm text-primary-foreground/80 leading-relaxed">
             <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
             <span>{SITE.address}</span>
           </p>
@@ -66,7 +66,7 @@ export function Footer() {
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-md bg-primary-foreground/15 px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-md bg-primary-foreground/15 px-4 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 min-h-[44px]"
             >
               <WhatsAppIcon className="size-4" />
               Falar no WhatsApp
@@ -86,7 +86,7 @@ export function Footer() {
 
       <div className="border-t border-primary-foreground/15">
         <p className="mx-auto max-w-6xl px-4 py-5 text-xs text-primary-foreground/60 sm:px-6">
-          {new Date().getFullYear()} {SITE.fullName}. Todos os direitos reservados.
+          © {new Date().getFullYear()} {SITE.fullName}. Todos os direitos reservados.
         </p>
       </div>
     </footer>

@@ -6,9 +6,9 @@ import logoCbe from "@/assets/logo-cbe.png";
 
 const NAV = [
   { to: "/", label: "Home" },
-  { to: "/sobre-nos", label: "Sobre Nos" },
-  { to: "/quadros-eletricos", label: "Quadros Eletricos" },
-  { to: "/orcamento", label: "Orcamento" },
+  { to: "/sobre-nos", label: "Sobre Nós" },
+  { to: "/quadros-eletricos", label: "Quadros Elétricos" },
+  { to: "/orcamento", label: "Orçamento" },
   { to: "/contato", label: "Contato" },
 ] as const;
 
@@ -21,7 +21,7 @@ export function Header() {
         <Link to="/" className="flex items-center gap-3 py-1" onClick={() => setOpen(false)}>
           <img
             src={logoCbe}
-            alt="Correa Barbosa Engenharia"
+            alt="Corrêa Barbosa Engenharia"
             className="h-9 sm:h-10 w-auto object-contain"
           />
         </Link>
@@ -44,8 +44,8 @@ export function Header() {
         </nav>
 
         <div className="hidden md:block">
-          <Button asChild size="sm">
-            <Link to="/orcamento">Solicitar orcamento</Link>
+          <Button asChild size="sm" className="h-10">
+            <Link to="/orcamento">Solicitar orçamento</Link>
           </Button>
         </div>
 
@@ -67,16 +67,16 @@ export function Header() {
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="border-b border-border py-3 text-sm font-medium text-foreground"
+                className="border-b border-border py-3 text.sm font-medium text-foreground"
                 activeProps={{ className: "border-b border-border py-3 text-sm font-medium text-primary" }}
                 activeOptions={{ exact: true }}
               >
                 {item.label}
               </Link>
             ))}
-            <Button asChild className="my-4">
+            <Button asChild className="my-4 h-11 w-full">
               <Link to="/orcamento" onClick={() => setOpen(false)}>
-                Solicitar orcamento
+                Solicitar orçamento
               </Link>
             </Button>
           </nav>

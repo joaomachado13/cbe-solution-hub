@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { motion } from "framer-motion";
 import { WhatsAppIcon } from "@/components/icons/BrandIcons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +16,6 @@ import {
 } from "@/components/ui/select";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { SITE } from "@/lib/site";
-import { ReactiveMap } from "@/components/ui/ReactiveMap";
 
 type CategoryKey =
   | "residencial"
@@ -27,33 +27,32 @@ type CategoryKey =
 
 const CATEGORY_LABEL: Record<CategoryKey, string> = {
   residencial: "Residencial / Predial (QDF)",
-  comercial: "Comercial de Distribuicao",
-  industrial: "Industrial de Distribuicao (QGD)",
+  comercial: "Comercial de Distribuição",
+  industrial: "Industrial de Distribuição (QGD)",
   qcm: "Quadro de Comando de Motores (QCM / CCM)",
-  medicao: "Quadro de Medicao / Entrada",
-  naosei: "Nao sei / Caso Especifico",
+  medicao: "Quadro de Medição / Entrada",
+  naosei: "Não sei / Caso Específico",
 };
 
 const CATEGORY_OPTIONS: Array<{ value: CategoryKey; label: string }> = [
   { value: "residencial", label: "Residencial / Predial (QDF)" },
-  { value: "comercial", label: "Comercial de Distribuicao" },
-  { value: "industrial", label: "Industrial de Distribuicao (QGD)" },
+  { value: "comercial", label: "Comercial de Distribuição" },
+  { value: "industrial", label: "Industrial de Distribuição (QGD)" },
   { value: "qcm", label: "Quadro de Comando de Motores (QCM / CCM)" },
-  { value: "medicao", label: "Quadro de Medicao / Entrada" },
-  { value: "naosei", label: "Nao sei / Caso Especifico" },
+  { value: "medicao", label: "Quadro de Medição / Entrada" },
+  { value: "naosei", label: "Não sei / Caso Específico" },
 ];
 
 const quoteSchema = z.object({
   category: z.string().min(1, "Selecione uma categoria"),
-  voltage: z.string().min(1, "Selecione a tensao"),
-  installType: z.string().min(1, "Selecione o tipo de instalacao"),
+  voltage: z.string().min(1, "Selecione a tensão"),
+  installType: z.string().min(1, "Selecione o tipo de instalação"),
   circuits: z.string().max(40).optional().default(""),
   load: z.string().max(40).optional().default(""),
-  cep: z.string().max(10).optional().default(""),
   location: z
     .string()
     .trim()
-    .min(2, "Informe a cidade/local da instalacao")
+    .min(2, "Informe a cidade/local da instalação")
     .max(120),
   description: z
     .string()
@@ -65,7 +64,7 @@ const quoteSchema = z.object({
   phone: z
     .string()
     .trim()
-    .min(8, "Informe um telefone/WhatsApp valido")
+    .min(8, "Informe um telefone/WhatsApp válido")
     .max(30),
 });
 
@@ -74,11 +73,11 @@ type QuoteForm = z.input<typeof quoteSchema>;
 export const Route = createFileRoute("/orcamento")({
   head: () => ({
     meta: [
-      { title: "Orcamento | CBE — Solicite sua Cotacao" },
+      { title: "Orçamento | CBE — Solicite sua Cotação" },
       {
         name: "description",
         content:
-          "Solicite um orcamento de quadros eletricos sob medida. Preencha o formulario e receba atendimento direto da engenharia.",
+          "Solicite um orçamento de quadros elétricos sob medida. Preencha o formulário e receba atendimento direto da engenharia.",
       },
     ],
   }),
@@ -88,7 +87,6 @@ export const Route = createFileRoute("/orcamento")({
 function Orcamento() {
   const formRef = useRef<HTMLDivElement>(null);
 
-  // Ler categoria da URL se veio de /quadros-eletricos
   const searchParams = new URLSearchParams(
     typeof window !== "undefined" ? window.location.search : "",
   );
@@ -100,7 +98,6 @@ function Orcamento() {
     installType: "",
     circuits: "",
     load: "",
-    cep: "",
     location: "",
     description: "",
     name: "",
@@ -109,8 +106,6 @@ function Orcamento() {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [cepLoading, setCepLoading] = useState(false);
-  const [selectedMapAddress, setSelectedMapAddress] = useState<string>("");
 
   function update<K extends keyof QuoteForm>(key: K, value: QuoteForm[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -120,28 +115,6 @@ function Orcamento() {
         delete next[key as string];
         return next;
       });
-    }
-  }
-
-  async function handleCepSearch(cepVal: string) {
-    const cleanCep = cepVal.replace(/\D/g, "");
-    update("cep", cepVal);
-
-    if (cleanCep.length === 8) {
-      setCepLoading(true);
-      try {
-        const res = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
-        const data = await res.json();
-        if (!data.erro) {
-          const locationStr = `${data.logradouro ? `${data.logradouro}, ` : ""}${data.bairro ? `${data.bairro} — ` : ""}${data.localidade}/${data.uf}`;
-          update("location", locationStr);
-          setSelectedMapAddress(locationStr);
-        }
-      } catch (err) {
-        console.error("Erro na busca de CEP:", err);
-      } finally {
-        setCepLoading(false);
-      }
     }
   }
 
@@ -162,17 +135,16 @@ function Orcamento() {
 
     const data = result.data;
     const lines: string[] = [];
-    lines.push("*Solicitacao de Orcamento — Quadros Eletricos CBE*");
+    lines.push("*Solicitação de Orçamento — Quadros Elétricos CBE*");
     lines.push("");
     lines.push(`Categoria: ${CATEGORY_LABEL[data.category as CategoryKey] || data.category}`);
-    lines.push(`Tensao de alimentacao: ${data.voltage}`);
-    lines.push(`Tipo de instalacao: ${data.installType}`);
+    lines.push(`Tensão de alimentação: ${data.voltage}`);
+    lines.push(`Tipo de instalação: ${data.installType}`);
     if (data.circuits) lines.push(`Circuitos/disjuntores (aprox.): ${data.circuits}`);
     if (data.load) lines.push(`Carga estimada: ${data.load}`);
-    if (data.cep) lines.push(`CEP da Instalacao: ${data.cep}`);
-    lines.push(`Cidade/local da instalacao: ${data.location}`);
+    lines.push(`Cidade/local da instalação: ${data.location}`);
     lines.push("");
-    lines.push(`Descricao da necessidade:`);
+    lines.push(`Descrição da necessidade:`);
     lines.push(data.description);
     lines.push("");
     lines.push(`Nome: ${data.name}`);
@@ -186,226 +158,201 @@ function Orcamento() {
 
   return (
     <SiteLayout>
-      <section className="scroll-mt-20 border-b border-border bg-background py-16">
-        <div ref={formRef} className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="eyebrow">Cotacao Rapida</span>
+      <section className="scroll-mt-20 border-b border-border bg-background py-12 sm:py-16">
+        <div ref={formRef} className="mx-auto max-w-4xl px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center max-w-2xl mx-auto mb-8 sm:mb-10"
+          >
+            <span className="eyebrow">Cotação Rápida</span>
             <h1 className="rule-brand justify-center font-display text-3xl font-semibold text-primary sm:text-4xl">
-              Solicite seu Orcamento sob Medida
+              Solicite seu Orçamento sob Medida
             </h1>
-            <p className="mt-4 text-sm text-muted-foreground">
-              Preencha os dados da sua instalacao. Ao informar o CEP, a cidade e endereco sao preenchidos automaticamente e o mapa reativo localiza a area do projeto.
+            <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+              Preencha os dados da sua instalação para receber uma especificação técnica e orçamento direto da nossa equipe de engenharia.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-8 lg:grid-cols-12 items-start">
-            {/* Coluna Esquerda: Formulario */}
-            <div className="lg:col-span-7 rounded-2xl border border-border bg-surface p-6 sm:p-8 shadow-panel">
-              <form onSubmit={handleSubmit} noValidate className="space-y-6">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <Field
-                    id="category"
-                    label="Categoria do Quadro"
-                    required
-                    error={errors.category}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="rounded-2xl border border-border bg-surface p-5 sm:p-8 lg:p-10 shadow-panel"
+          >
+            <form onSubmit={handleSubmit} noValidate className="space-y-6">
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
+                <Field
+                  id="category"
+                  label="Categoria do Quadro"
+                  required
+                  error={errors.category}
+                >
+                  <Select
+                    value={form.category}
+                    onValueChange={(v) => update("category", v)}
                   >
-                    <Select
-                      value={form.category}
-                      onValueChange={(v) => update("category", v)}
-                    >
-                      <SelectTrigger id="category" aria-label="Categoria do quadro">
-                        <SelectValue placeholder="Selecione a categoria" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {CATEGORY_OPTIONS.map((opt) => (
-                          <SelectItem key={opt.value} value={opt.value}>
-                            {opt.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </Field>
+                    <SelectTrigger id="category" aria-label="Categoria do quadro" className="h-11">
+                      <SelectValue placeholder="Selecione a categoria" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {CATEGORY_OPTIONS.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </Field>
 
-                  <Field id="voltage" label="Tensao de Alimentacao" required error={errors.voltage}>
-                    <Select
-                      value={form.voltage}
-                      onValueChange={(v) => update("voltage", v)}
-                    >
-                      <SelectTrigger id="voltage" aria-label="Tensao de alimentacao">
-                        <SelectValue placeholder="Selecione a tensao" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="127V / Monofasico">127V Monofasico</SelectItem>
-                        <SelectItem value="220V / Bifasico">220V Bifasico</SelectItem>
-                        <SelectItem value="220V / Trifasico">220V Trifasico</SelectItem>
-                        <SelectItem value="380V / Trifasico">380V Trifasico</SelectItem>
-                        <SelectItem value="440V / Industrial">440V Industrial</SelectItem>
-                        <SelectItem value="Outro">Outro Caso</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-
-                  <Field
-                    id="installType"
-                    label="Tipo de Instalacao"
-                    required
-                    error={errors.installType}
+                <Field id="voltage" label="Tensão de Alimentação" required error={errors.voltage}>
+                  <Select
+                    value={form.voltage}
+                    onValueChange={(v) => update("voltage", v)}
                   >
-                    <Select
-                      value={form.installType}
-                      onValueChange={(v) => update("installType", v)}
-                    >
-                      <SelectTrigger id="installType" aria-label="Tipo de instalacao">
-                        <SelectValue placeholder="Selecione o tipo" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Instalacao Nova">Instalacao Nova</SelectItem>
-                        <SelectItem value="Reforma / Modernizacao">Reforma / Modernizacao</SelectItem>
-                        <SelectItem value="Ampliacao de Carga">Ampliacao de Carga</SelectItem>
-                        <SelectItem value="Substituicao de Quadro Antigo">Substituicao de Quadro Antigo</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </Field>
+                    <SelectTrigger id="voltage" aria-label="Tensão de alimentação" className="h-11">
+                      <SelectValue placeholder="Selecione a tensão" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="127V / Monofásico">127V Monofásico</SelectItem>
+                      <SelectItem value="220V / Bifásico">220V Bifásico</SelectItem>
+                      <SelectItem value="220V / Trifásico">220V Trifásico</SelectItem>
+                      <SelectItem value="380V / Trifásico">380V Trifásico</SelectItem>
+                      <SelectItem value="440V / Industrial">440V Industrial</SelectItem>
+                      <SelectItem value="Outro">Outro Caso</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Field>
 
-                  <Field
+                <Field
+                  id="installType"
+                  label="Tipo de Instalação"
+                  required
+                  error={errors.installType}
+                >
+                  <Select
+                    value={form.installType}
+                    onValueChange={(v) => update("installType", v)}
+                  >
+                    <SelectTrigger id="installType" aria-label="Tipo de instalação" className="h-11">
+                      <SelectValue placeholder="Selecione o tipo" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Instalação Nova">Instalação Nova</SelectItem>
+                      <SelectItem value="Reforma / Modernização">Reforma / Modernização</SelectItem>
+                      <SelectItem value="Ampliação de Carga">Ampliação de Carga</SelectItem>
+                      <SelectItem value="Substituição de Quadro Antigo">Substituição de Quadro Antigo</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Field>
+
+                <Field
+                  id="circuits"
+                  label="Nº Aproximado de Circuitos/Disjuntores"
+                  hint="Opcional"
+                  error={errors.circuits}
+                >
+                  <Input
                     id="circuits"
-                    label="N. Aproximado de Circuitos/Disjuntores"
-                    hint="Opcional"
-                    error={errors.circuits}
-                  >
-                    <Input
-                      id="circuits"
-                      inputMode="numeric"
-                      placeholder="Ex.: 16 circuitos"
-                      value={form.circuits}
-                      onChange={(e) => update("circuits", e.target.value)}
-                    />
-                  </Field>
+                    inputMode="numeric"
+                    placeholder="Ex.: 16 circuitos"
+                    className="h-11"
+                    value={form.circuits}
+                    onChange={(e) => update("circuits", e.target.value)}
+                  />
+                </Field>
 
-                  <Field
+                <Field
+                  id="load"
+                  label="Carga Estimada (kVA ou kW)"
+                  hint="Não sabe? Nós calculamos"
+                  error={errors.load}
+                >
+                  <Input
                     id="load"
-                    label="Carga Estimada (kVA ou kW)"
-                    hint="Nao sabe? Nos calculamos"
-                    error={errors.load}
-                  >
-                    <Input
-                      id="load"
-                      placeholder="Ex.: 45 kVA ou 30 kW"
-                      value={form.load}
-                      onChange={(e) => update("load", e.target.value)}
-                    />
-                  </Field>
-
-                  <Field
-                    id="cep"
-                    label="CEP da Obra / Instalacao"
-                    hint="Preenche cidade e mapa"
-                    error={errors.cep}
-                  >
-                    <div className="relative">
-                      <Input
-                        id="cep"
-                        placeholder="Ex.: 38400-100"
-                        value={form.cep}
-                        onChange={(e) => handleCepSearch(e.target.value)}
-                      />
-                      {cepLoading && (
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-brand font-medium">
-                          Buscando...
-                        </span>
-                      )}
-                    </div>
-                  </Field>
-                </div>
+                    placeholder="Ex.: 45 kVA ou 30 kW"
+                    className="h-11"
+                    value={form.load}
+                    onChange={(e) => update("load", e.target.value)}
+                  />
+                </Field>
 
                 <Field
                   id="location"
-                  label="Cidade / Endereco da Instalacao"
+                  label="Cidade / Endereço da Instalação"
                   required
                   error={errors.location}
                 >
                   <Input
                     id="location"
-                    placeholder="Ex.: Uberlandia, MG ou Bairro Distrito Industrial"
+                    placeholder="Ex.: Uberlândia, MG ou Bairro Distrito Industrial"
+                    className="h-11"
                     value={form.location}
-                    onChange={(e) => {
-                      update("location", e.target.value);
-                      setSelectedMapAddress(e.target.value);
-                    }}
+                    onChange={(e) => update("location", e.target.value)}
                   />
                 </Field>
-
-                <Field
-                  id="description"
-                  label="Descricao das Necessidades e Aplicacao"
-                  required
-                  error={errors.description}
-                >
-                  <Textarea
-                    id="description"
-                    rows={4}
-                    placeholder="Descreva as principais cargas (motores, iluminacao, tomadas, ar condicionado), prazos de entrega e detalhes especificos."
-                    value={form.description}
-                    onChange={(e) => update("description", e.target.value)}
-                  />
-                </Field>
-
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <Field id="name" label="Seu Nome" required error={errors.name}>
-                    <Input
-                      id="name"
-                      placeholder="Nome completo"
-                      value={form.name}
-                      onChange={(e) => update("name", e.target.value)}
-                    />
-                  </Field>
-
-                  <Field id="company" label="Empresa / Razao Social" hint="Opcional" error={errors.company}>
-                    <Input
-                      id="company"
-                      placeholder="Nome da sua empresa (opcional)"
-                      value={form.company}
-                      onChange={(e) => update("company", e.target.value)}
-                    />
-                  </Field>
-                </div>
-
-                <Field id="phone" label="Telefone / WhatsApp" required error={errors.phone}>
-                  <Input
-                    id="phone"
-                    inputMode="tel"
-                    placeholder="(34) 99922-7667"
-                    value={form.phone}
-                    onChange={(e) => update("phone", e.target.value)}
-                  />
-                </Field>
-
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-border">
-                  <div className="text-xs text-muted-foreground">
-                    Abre o WhatsApp com a mensagem formatada para atendimento direto pela engenharia.
-                  </div>
-                  <Button type="submit" size="lg" className="w-full sm:w-auto px-8 h-12 text-sm font-semibold">
-                    <WhatsAppIcon className="size-4 mr-2" />
-                    Enviar Solicitacao pelo WhatsApp
-                  </Button>
-                </div>
-              </form>
-            </div>
-
-            {/* Coluna Direita: Mapa Reativo */}
-            <div className="lg:col-span-5 sticky top-24">
-              <div className="rounded-xl border border-border bg-surface p-4 shadow-panel">
-                <p className="eyebrow mb-2">Localizacao da Instalacao / Matriz</p>
-                <h3 className="font-display text-lg font-semibold text-primary mb-3">
-                  Mapa da Obra
-                </h3>
-                <ReactiveMap
-                  initialLocation={selectedMapAddress || form.cep}
-                  interactiveSearch={true}
-                />
               </div>
-            </div>
-          </div>
+
+              <Field
+                id="description"
+                label="Descrição das Necessidades & Aplicação"
+                required
+                error={errors.description}
+              >
+                <Textarea
+                  id="description"
+                  rows={4}
+                  placeholder="Descreva as principais cargas (motores, iluminação, tomadas, ar condicionado), prazos de entrega e detalhes específicos."
+                  value={form.description}
+                  onChange={(e) => update("description", e.target.value)}
+                />
+              </Field>
+
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
+                <Field id="name" label="Seu Nome" required error={errors.name}>
+                  <Input
+                    id="name"
+                    placeholder="Nome completo"
+                    className="h-11"
+                    value={form.name}
+                    onChange={(e) => update("name", e.target.value)}
+                  />
+                </Field>
+
+                <Field id="company" label="Empresa / Razão Social" hint="Opcional" error={errors.company}>
+                  <Input
+                    id="company"
+                    placeholder="Nome da sua empresa (opcional)"
+                    className="h-11"
+                    value={form.company}
+                    onChange={(e) => update("company", e.target.value)}
+                  />
+                </Field>
+              </div>
+
+              <Field id="phone" label="Telefone / WhatsApp" required error={errors.phone}>
+                <Input
+                  id="phone"
+                  inputMode="tel"
+                  placeholder="(34) 99922-7667"
+                  className="h-11"
+                  value={form.phone}
+                  onChange={(e) => update("phone", e.target.value)}
+                />
+              </Field>
+
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-border">
+                <div className="text-xs text-muted-foreground text-center sm:text-left">
+                  Abre o WhatsApp com a mensagem formatada para atendimento direto pela engenharia.
+                </div>
+                <Button type="submit" size="lg" className="w-full sm:w-auto px-8 h-12 text-sm font-semibold">
+                  <WhatsAppIcon className="size-4 mr-2" />
+                  Enviar Solicitação pelo WhatsApp
+                </Button>
+              </div>
+            </form>
+          </motion.div>
         </div>
       </section>
     </SiteLayout>
