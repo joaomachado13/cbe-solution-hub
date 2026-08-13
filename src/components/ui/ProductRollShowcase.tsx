@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft,
@@ -158,97 +158,113 @@ interface ProductRollShowcaseProps {
 
 export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [userInteracted, setUserInteracted] = useState(false);
 
   const activeProduct = PRODUCTS[activeIndex];
 
+  // Rotação automática a cada 5 segundos até que o usuário clique em uma aba
+  useEffect(() => {
+    if (userInteracted) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % PRODUCTS.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [userInteracted]);
+
+  const handleSelectTab = (index: number) => {
+    setUserInteracted(true);
+    setActiveIndex(index);
+  };
+
   const handleNext = () => {
+    setUserInteracted(true);
     setActiveIndex((prev) => (prev + 1) % PRODUCTS.length);
   };
 
   const handlePrev = () => {
+    setUserInteracted(true);
     setActiveIndex((prev) => (prev - 1 + PRODUCTS.length) % PRODUCTS.length);
   };
 
   return (
     <div className="w-full">
-      {/* Barra de Navegação dos Modelos (Sequence Roll Tabs) */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar border-b border-border">
+      {/* 1. Aba de Categorias (Sem Scrollbar Visível) */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] border-b border-border">
         {PRODUCTS.map((prod, idx) => {
           const isActive = idx === activeIndex;
           return (
             <button
               key={prod.id}
-              onClick={() => setActiveIndex(idx)}
-              className={`flex-shrink-0 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2 border min-h-[44px] ${
+              onClick={() => handleSelectTab(idx)}
+              className={`flex-shrink-0 px-5 py-3 rounded-lg text-sm font-semibold transition-all duration-300 min-h-[44px] ${
                 isActive
-                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
-                  : "bg-surface text-muted-foreground border-border hover:bg-muted hover:text-foreground"
+                  ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
+                  : "bg-surface text-muted-foreground hover:bg-muted hover:text-primary border border-border/60"
               }`}
             >
-              <span>{prod.title.split(" (")[0]}</span>
+              {prod.title.split(" (")[0]}
             </button>
           );
         })}
       </div>
 
-      {/* Conteúdo Principal — Grid 2 colunas no desktop, 1 coluna no mobile */}
-      <div className="mt-6 sm:mt-8 grid gap-6 lg:gap-8 lg:grid-cols-12 items-stretch">
-        {/* Coluna Esquerda: Showcase Visual em Sequência Roll com Fotos Reais CBE */}
-        <div className="lg:col-span-6 flex flex-col justify-between rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-panel relative overflow-hidden">
-          {/* Tag de categoria */}
-          <div className="flex items-center justify-between z-10 mb-3 sm:mb-4">
-            <span className="eyebrow bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full border border-border">
-              {activeProduct.tag}
-            </span>
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-mono">
-              <span>{activeIndex + 1}</span>
-              <span>/</span>
-              <span>{PRODUCTS.length}</span>
-            </div>
-          </div>
-
-          {/* Imagem do Produto Real CBE com Transição em Roll */}
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-muted my-2">
+      {/* 2. Visualização Principal sem Cards Internos Duplicados */}
+      <div className="mt-8 grid gap-8 lg:grid-cols-12 items-start">
+        {/* Coluna da Imagem Real (Livre, Sem Card Interno) */}
+        <div className="lg:col-span-6 flex flex-col space-y-4">
+          <div className="relative aspect-[4/3] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border bg-slate-950 shadow-xl">
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeProduct.id}
                 src={activeProduct.image}
                 alt={activeProduct.title}
-                initial={{ opacity: 0, scale: 0.95, x: 20 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                exit={{ opacity: 0, scale: 1.05, x: -20 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
+                initial={{ opacity: 0, scale: 1.03 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="h-full w-full object-cover"
               />
             </AnimatePresence>
 
-            {/* Selo Garantia de Engenharia CBE */}
-            <div className="absolute bottom-3 left-3 bg-background/90 backdrop-blur-md px-3 py-1.5 rounded-md border border-border text-xs flex items-center gap-1.5 text-primary font-medium">
-              <ShieldCheck className="size-4 text-brand" />
+            {/* Tag da Categoria no Topo da Imagem */}
+            <div className="absolute top-4 left-4 z-10">
+              <span className="bg-black/70 text-white backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold border border-white/20">
+                {activeProduct.tag}
+              </span>
+            </div>
+
+            {/* Selo Montagem Real CBE */}
+            <div className="absolute bottom-4 left-4 z-10 bg-black/75 backdrop-blur-md px-3.5 py-1.5 rounded-md border border-white/20 text-xs flex items-center gap-2 text-white font-medium">
+              <ShieldCheck className="size-4 text-primary-foreground" />
               <span>Foto Real • Montagem CBE</span>
+            </div>
+
+            {/* Contador Discreto de Slides */}
+            <div className="absolute bottom-4 right-4 z-10 bg-black/75 backdrop-blur-md px-3 py-1 rounded-md border border-white/20 text-xs font-mono text-white">
+              {activeIndex + 1} / {PRODUCTS.length}
             </div>
           </div>
 
-          {/* Botões de Navegação Roll Anterior / Próximo */}
-          <div className="flex items-center justify-between pt-4 border-t border-border mt-2">
+          {/* Controles de Avançar e Voltar */}
+          <div className="flex items-center justify-between pt-2">
             <Button
               variant="outline"
               size="sm"
               onClick={handlePrev}
-              className="text-xs h-10 px-3.5 gap-1"
+              className="text-xs h-10 px-4 gap-1.5 font-semibold text-primary"
             >
               <ChevronLeft className="size-4" />
               Anterior
             </Button>
 
-            {/* Indicadores de bolinhas do roll */}
-            <div className="flex items-center gap-1.5">
+            {/* Bolinhas Indicadoras de Slide */}
+            <div className="flex items-center gap-2">
               {PRODUCTS.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setActiveIndex(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === activeIndex ? "w-6 bg-brand" : "w-2 bg-border hover:bg-muted-foreground"
+                  onClick={() => handleSelectTab(i)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    i === activeIndex ? "w-7 bg-primary" : "w-2.5 bg-border hover:bg-muted-foreground"
                   }`}
                   aria-label={`Ir para produto ${i + 1}`}
                 />
@@ -259,7 +275,7 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
               variant="outline"
               size="sm"
               onClick={handleNext}
-              className="text-xs h-10 px-3.5 gap-1"
+              className="text-xs h-10 px-4 gap-1.5 font-semibold text-primary"
             >
               Próximo
               <ChevronRight className="size-4" />
@@ -267,27 +283,31 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
           </div>
         </div>
 
-        {/* Coluna Direita: Especificações Técnicas Fixas ao Lado */}
-        <div className="lg:col-span-6 flex flex-col justify-between rounded-xl border border-border bg-background p-5 sm:p-6 shadow-panel">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand">
+        {/* Coluna das Informações Maiores do Lado de Fora (Sem Vermelho) */}
+        <div className="lg:col-span-6 flex flex-col justify-between space-y-6">
+          <div className="space-y-4">
+            {/* Rótulo da Ficha Técnica sem Texto Vermelho */}
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
               <Sliders className="size-4" />
-              <span>Ficha Técnica & Especificações</span>
+              <span>Ficha Técnica & Especificações do Modelo</span>
             </div>
 
-            <h3 className="mt-2 font-display text-xl sm:text-2xl text-primary font-semibold">
-              {activeProduct.title}
-            </h3>
-            <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
-              {activeProduct.subtitle}
-            </p>
+            {/* Título e Subtítulo Maiores e Claros */}
+            <div>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-primary leading-tight">
+                {activeProduct.title}
+              </h2>
+              <p className="mt-1 text-sm sm:text-base text-muted-foreground font-medium">
+                {activeProduct.subtitle}
+              </p>
+            </div>
 
-            <p className="mt-4 text-xs sm:text-sm text-foreground leading-relaxed">
+            <p className="text-sm sm:text-base text-foreground leading-relaxed">
               {activeProduct.description}
             </p>
 
-            {/* Tabela de Especificações do Quadro */}
-            <div className="mt-5 sm:mt-6 space-y-2.5 rounded-lg border border-border bg-surface p-3.5 sm:p-4">
+            {/* Tabela Clean de Especificações (Sem Cards Internos Duplicados) */}
+            <div className="mt-6 space-y-3 rounded-xl border border-border bg-surface p-4 sm:p-5 shadow-xs">
               <SpecRow label="Tensão Nominal:" value={activeProduct.specs.tensao} />
               <SpecRow label="Corrente Máxima:" value={activeProduct.specs.correnteMax} />
               <SpecRow label="Grau de Proteção:" value={activeProduct.specs.protecao} />
@@ -296,27 +316,27 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
               <SpecRow label="Aplicações Típicas:" value={activeProduct.specs.aplicacao} />
             </div>
 
-            {/* Lista de Diferenciais Técnicos */}
-            <div className="mt-5 sm:mt-6">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+            {/* Diferenciais Inclusos (Lista Limpa em Azul Primário) */}
+            <div className="pt-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-primary mb-3">
                 Diferenciais Inclusos neste Modelo
               </h4>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-foreground">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-foreground">
                 {activeProduct.features.map((feat, fIdx) => (
-                  <li key={fIdx} className="flex items-start gap-2 bg-surface p-2.5 rounded border border-border/60">
-                    <CheckCircle2 className="size-3.5 text-primary flex-shrink-0 mt-0.5" />
-                    <span>{feat}</span>
+                  <li key={fIdx} className="flex items-start gap-2.5 bg-background p-3 rounded-lg border border-border/80 shadow-2xs">
+                    <CheckCircle2 className="size-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="font-medium text-xs sm:text-sm">{feat}</span>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          {/* Botão Ação Orçamento */}
-          <div className="mt-6 sm:mt-8 pt-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-            <div className="text-xs text-muted-foreground text-center sm:text-left">
-              <span>Engenheiro responsável pelo projeto dedicado.</span>
-            </div>
+          {/* Botão de Orçamento no Modelo Ativo */}
+          <div className="pt-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="text-xs text-muted-foreground font-medium">
+              Engenharia dedicada para o seu projeto.
+            </span>
             <Button
               size="lg"
               onClick={() => {
@@ -324,7 +344,7 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
                   onSelectCategory(activeProduct.id);
                 }
               }}
-              className="w-full sm:w-auto text-sm font-semibold h-11 px-6"
+              className="w-full sm:w-auto text-sm font-semibold h-12 px-7"
             >
               Solicitar orçamento deste modelo
               <ArrowRight className="size-4 ml-2" />
@@ -338,9 +358,9 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
 
 function SpecRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between text-xs border-b border-border/40 pb-2 last:border-0 last:pb-0 gap-0.5 sm:gap-1">
-      <span className="font-semibold text-primary min-w-[130px]">{label}</span>
-      <span className="text-muted-foreground sm:text-right font-medium">{value}</span>
+    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between text-xs sm:text-sm border-b border-border/50 pb-2.5 last:border-0 last:pb-0 gap-1">
+      <span className="font-bold text-primary min-w-[140px]">{label}</span>
+      <span className="text-foreground sm:text-right font-medium">{value}</span>
     </div>
   );
 }
