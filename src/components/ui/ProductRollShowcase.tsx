@@ -162,12 +162,12 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
 
   const activeProduct = PRODUCTS[activeIndex];
 
-  // Rotação automática a cada 5 segundos até que o usuário clique em uma aba
+  // Rotação automática a cada 8 segundos até que o usuário clique em uma aba
   useEffect(() => {
     if (userInteracted) return;
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % PRODUCTS.length);
-    }, 5000);
+    }, 8000);
     return () => clearInterval(timer);
   }, [userInteracted]);
 
@@ -208,9 +208,9 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
         })}
       </div>
 
-      {/* 2. Visualização Principal sem Cards Internos Duplicados */}
+      {/* 2. Visualização Principal com Foto Livre (Sem Badges Flutuantes) */}
       <div className="mt-8 grid gap-8 lg:grid-cols-12 items-start">
-        {/* Coluna da Imagem Real (Livre, Sem Card Interno) */}
+        {/* Coluna da Imagem Real (Livre, Limpa) */}
         <div className="lg:col-span-6 flex flex-col space-y-4">
           <div className="relative aspect-[4/3] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border bg-slate-950 shadow-xl">
             <AnimatePresence mode="wait">
@@ -225,24 +225,6 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
                 className="h-full w-full object-cover"
               />
             </AnimatePresence>
-
-            {/* Tag da Categoria no Topo da Imagem */}
-            <div className="absolute top-4 left-4 z-10">
-              <span className="bg-black/70 text-white backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold border border-white/20">
-                {activeProduct.tag}
-              </span>
-            </div>
-
-            {/* Selo Montagem Real CBE */}
-            <div className="absolute bottom-4 left-4 z-10 bg-black/75 backdrop-blur-md px-3.5 py-1.5 rounded-md border border-white/20 text-xs flex items-center gap-2 text-white font-medium">
-              <ShieldCheck className="size-4 text-primary-foreground" />
-              <span>Foto Real • Montagem CBE</span>
-            </div>
-
-            {/* Contador Discreto de Slides */}
-            <div className="absolute bottom-4 right-4 z-10 bg-black/75 backdrop-blur-md px-3 py-1 rounded-md border border-white/20 text-xs font-mono text-white">
-              {activeIndex + 1} / {PRODUCTS.length}
-            </div>
           </div>
 
           {/* Controles de Avançar e Voltar */}

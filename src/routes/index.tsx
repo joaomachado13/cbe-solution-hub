@@ -69,7 +69,7 @@ function Index() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 5000);
+    }, 8000);
     return () => clearInterval(timer);
   }, []);
 
@@ -138,24 +138,6 @@ function Index() {
               <Button asChild size="lg" variant="outline" className="h-13 px-8 text-sm font-semibold bg-white/10 backdrop-blur-md text-white border-white/30 hover:bg-white/20 w-full sm:w-auto">
                 <Link to="/orcamento">Fazer um orçamento</Link>
               </Button>
-            </div>
-
-            {/* Badges de credibilidade em linha discreta */}
-            <div className="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto text-left">
-              <div className="p-3 rounded-lg bg-white/10 backdrop-blur-md border border-white/15">
-                <p className="text-xs font-bold text-white">NBR IEC 61439</p>
-                <p className="text-[11px] text-slate-300">Conformidade total</p>
-              </div>
-
-              <div className="p-3 rounded-lg bg-white/10 backdrop-blur-md border border-white/15">
-                <p className="text-xs font-bold text-white">100% Sob Medida</p>
-                <p className="text-[11px] text-slate-300">Carga calculada</p>
-              </div>
-
-              <div className="p-3 rounded-lg bg-white/10 backdrop-blur-md border border-white/15">
-                <p className="text-xs font-bold text-white">Uberlândia & Região</p>
-                <p className="text-[11px] text-slate-300">Atendimento técnico</p>
-              </div>
             </div>
           </motion.div>
         </div>
