@@ -5,12 +5,14 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import logoCbe from "@/assets/logo-cbe.png";
-import heroSlide1 from "@/assets/hero-slide-1.jpg";
-import heroSlide2 from "@/assets/hero-slide-2.jpg";
-import heroSlide3 from "@/assets/hero-slide-3.jpg";
-import heroQuadros from "@/assets/hero-quadros.jpg";
-import quadroResidencial from "@/assets/quadro-residencial.jpg";
-import quadroIndustrial from "@/assets/quadro-industrial.jpg";
+
+import fabricaLinhaQuadros from "@/assets/cbe/fabrica-linha-quadros.jpg";
+import quadroAutoportanteCcm from "@/assets/cbe/quadro-autoportante-ccm.jpg";
+import anilhamentoBornesTecnico from "@/assets/cbe/anilhamento-bornes-tecnico.jpg";
+import painelSinaleirasComando from "@/assets/cbe/painel-sinaleiras-comando.jpg";
+import bancadaMontagemFabrica from "@/assets/cbe/bancada-montagem-fabrica.jpg";
+import quadroQdfResidencialReal from "@/assets/cbe/quadro-qdf-residencial-real.jpg";
+import quadroComercialBarramento from "@/assets/cbe/quadro-comercial-barramento.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,24 +35,24 @@ export const Route = createFileRoute("/")({
 
 const HERO_SLIDES = [
   {
-    image: heroSlide3,
+    image: fabricaLinhaQuadros,
     title: "Quadros Industriais & Subestações de Alta Capacidade",
     caption: "Engenharia de painéis autoportantes e distribuição trifásica sob norma NBR IEC 61439.",
   },
   {
-    image: heroSlide1,
-    title: "Infraestrutura de Energia & Eletromobilidade",
-    caption: "Soluções completas para carregadores veiculares WEMOB e infraestrutura de alta potência.",
+    image: quadroAutoportanteCcm,
+    title: "Comando de Motores & Automação com Soft Starters",
+    caption: "Painéis autoportantes com inversores de frequência e proteção dedicada Siemens/Schneider.",
   },
   {
-    image: heroSlide2,
-    title: "Sistemas Fotovoltaicos & Energia Limpa",
-    caption: "Quadros de proteção AC/DC e integração de usinas solares com máxima segurança.",
+    image: anilhamentoBornesTecnico,
+    title: "Anilhamento Rigoroso & Organização de Fiação",
+    caption: "Identificação numérica e bornes organizados em canaletas com tampa perfurada.",
   },
   {
-    image: heroQuadros,
-    title: "Quadros de Distribuição Comercial & Predial",
-    caption: "Montagem com anilhamento rigoroso, barramentos dimensionados e suporte pós-partida.",
+    image: painelSinaleirasComando,
+    title: "Quadros Comerciais & Painéis de Sinalização",
+    caption: "Sinalização de energização por sinaleiras LED e seletores de comando.",
   },
 ];
 
@@ -73,7 +75,7 @@ function Index() {
 
   return (
     <SiteLayout>
-      {/* 1. Hero com Slideshow de Fotos de Fundo, Logo Transparente Ampliada no Centro e Sem Header por cima */}
+      {/* 1. Hero com Slideshow de Fotos Reais da Fábrica CBE */}
       <section id="hero" className="relative scroll-mt-20 overflow-hidden bg-slate-950 text-white min-h-[90vh] sm:min-h-[95vh] flex flex-col justify-center">
         {/* Carrossel de Fotos de Fundo com Crossfade */}
         <div className="absolute inset-0 z-0">
@@ -173,15 +175,15 @@ function Index() {
         </div>
       </section>
 
-      {/* 2. A Essência da CBE */}
+      {/* 2. A Essência da CBE (com foto da Bancada Real de Montagem) */}
       <section className="scroll-mt-20 border-b border-border bg-background py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div {...fadeInUp} className="grid gap-8 lg:grid-cols-12 items-center">
             <div className="lg:col-span-5">
               <div className="overflow-hidden rounded-xl border border-border shadow-xs">
                 <img
-                  src={heroQuadros}
-                  alt="Fábrica e equipe CBE Engenharia"
+                  src={bancadaMontagemFabrica}
+                  alt="Bancada de montagem na fábrica CBE Engenharia"
                   className="w-full h-auto object-cover"
                 />
               </div>
@@ -265,7 +267,7 @@ function Index() {
         </div>
       </section>
 
-      {/* 5. Teaser de Produtos */}
+      {/* 5. Teaser de Produtos (com fotos reais) */}
       <section className="scroll-mt-20 border-b border-border bg-background py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
@@ -282,7 +284,7 @@ function Index() {
             <motion.div {...fadeInUp} className="group rounded-xl border border-border bg-surface overflow-hidden shadow-xs transition-all duration-300 hover:shadow-md">
               <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={quadroResidencial}
+                  src={quadroQdfResidencialReal}
                   alt="Quadro residencial e predial"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -298,7 +300,7 @@ function Index() {
             <motion.div {...fadeInUp} className="group rounded-xl border border-border bg-surface overflow-hidden shadow-xs transition-all duration-300 hover:shadow-md">
               <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={quadroIndustrial}
+                  src={quadroAutoportanteCcm}
                   alt="Quadro industrial de distribuição"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -314,7 +316,7 @@ function Index() {
             <motion.div {...fadeInUp} className="group rounded-xl border border-border bg-surface overflow-hidden shadow-xs transition-all duration-300 hover:shadow-md sm:col-span-2 lg:col-span-1">
               <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={heroQuadros}
+                  src={quadroComercialBarramento}
                   alt="Quadro comercial e de medição"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />

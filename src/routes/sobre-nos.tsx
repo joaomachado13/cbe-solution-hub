@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import bancadaMontagemFabrica from "@/assets/cbe/bancada-montagem-fabrica.jpg";
 import heroQuadros from "@/assets/hero-quadros.jpg";
 
 export const Route = createFileRoute("/sobre-nos")({
@@ -48,8 +49,8 @@ function SobreNos() {
             <div className="lg:col-span-5">
               <div className="overflow-hidden rounded-xl border border-border shadow-xs">
                 <img
-                  src={heroQuadros}
-                  alt="Fábrica CBE Engenharia"
+                  src={bancadaMontagemFabrica}
+                  alt="Bancada de montagem da fábrica CBE Engenharia"
                   className="w-full h-auto object-cover"
                 />
               </div>

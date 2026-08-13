@@ -9,8 +9,12 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import quadroResidencial from "@/assets/quadro-residencial.jpg";
-import quadroIndustrial from "@/assets/quadro-industrial.jpg";
+
+import quadroQdfResidencialReal from "@/assets/cbe/quadro-qdf-residencial-real.jpg";
+import quadroComercialBarramento from "@/assets/cbe/quadro-comercial-barramento.jpg";
+import fabricaLinhaQuadros from "@/assets/cbe/fabrica-linha-quadros.jpg";
+import quadroAutoportanteCcm from "@/assets/cbe/quadro-autoportante-ccm.jpg";
+import painelSinaleirasComando from "@/assets/cbe/painel-sinaleiras-comando.jpg";
 
 export interface ProductModel {
   id: "residencial" | "comercial" | "industrial" | "qcm" | "medicao";
@@ -37,7 +41,7 @@ const PRODUCTS: ProductModel[] = [
     subtitle: "Distribuição e proteção para condomínios e residências de médio e alto padrão",
     description:
       "Quadros de distribuição de luz e força dimensionados sob medida para garantir total segurança aos circuitos residenciais, com barramento neutro/terra isolado e disposição intuitiva de disjuntores DIN.",
-    image: quadroResidencial,
+    image: quadroQdfResidencialReal,
     tag: "Sob Medida • Residencial",
     specs: {
       tensao: "127V / 220V (Monofásico, Bifásico ou Trifásico)",
@@ -60,7 +64,7 @@ const PRODUCTS: ProductModel[] = [
     subtitle: "Solução robusta para lojas, supermercados, escritórios e centros empresariais",
     description:
       "Desenvolvido para operar continuamente sob carga intermediária, prevendo divisão estratégica de circuitos para iluminação, climatização, informática e tomada para equipamentos especiais.",
-    image: quadroResidencial,
+    image: quadroComercialBarramento,
     tag: "Comercial • Alta Eficiência",
     specs: {
       tensao: "220V / 380V Trifásico + Neutro",
@@ -83,7 +87,7 @@ const PRODUCTS: ProductModel[] = [
     subtitle: "Poderosa central de distribuição trifásica de alta capacidade para indústrias",
     description:
       "Quadros autoportantes ou de parede fabricados sob rigorosas especificações industriais. Suportam altas correntes de curto-circuito e grandes variações térmicas e operacionais.",
-    image: quadroIndustrial,
+    image: fabricaLinhaQuadros,
     tag: "Industrial • Alta Capacidade",
     specs: {
       tensao: "220V / 380V / 440V Trifásico",
@@ -106,7 +110,7 @@ const PRODUCTS: ProductModel[] = [
     subtitle: "Automação, partida suave e proteção dedicada para motores elétricos",
     description:
       "Painéis especializados para partida direta, estrela-triângulo, soft-starters e inversores de frequência. Garantem redução de picos de corrente na rede e controle total de processos.",
-    image: quadroIndustrial,
+    image: quadroAutoportanteCcm,
     tag: "Automação • Comando Elétrico",
     specs: {
       tensao: "220V / 380V / 440V Trifásico",
@@ -129,7 +133,7 @@ const PRODUCTS: ProductModel[] = [
     subtitle: "Padrão de entrada e medição conforme normas da concessionária local",
     description:
       "Centrais de medição agrupada aprovadas para padrões de concessionárias de energia (CEMIG e equivalentes). Montagem modular com visão clara de visores de leitura e lacres de segurança.",
-    image: quadroIndustrial,
+    image: painelSinaleirasComando,
     tag: "Homologado • Padrão Concessionária",
     specs: {
       tensao: "127V / 220V / 380V",
@@ -189,7 +193,7 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
 
       {/* Conteúdo Principal — Grid 2 colunas no desktop, 1 coluna no mobile */}
       <div className="mt-6 sm:mt-8 grid gap-6 lg:gap-8 lg:grid-cols-12 items-stretch">
-        {/* Coluna Esquerda: Showcase Visual em Sequência Roll */}
+        {/* Coluna Esquerda: Showcase Visual em Sequência Roll com Fotos Reais CBE */}
         <div className="lg:col-span-6 flex flex-col justify-between rounded-xl border border-border bg-surface p-4 sm:p-6 shadow-panel relative overflow-hidden">
           {/* Tag de categoria */}
           <div className="flex items-center justify-between z-10 mb-3 sm:mb-4">
@@ -203,7 +207,7 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
             </div>
           </div>
 
-          {/* Imagem do Produto com Transição em Roll */}
+          {/* Imagem do Produto Real CBE com Transição em Roll */}
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-muted my-2">
             <AnimatePresence mode="wait">
               <motion.img
@@ -221,7 +225,7 @@ export function ProductRollShowcase({ onSelectCategory }: ProductRollShowcasePro
             {/* Selo Garantia de Engenharia CBE */}
             <div className="absolute bottom-3 left-3 bg-background/90 backdrop-blur-md px-3 py-1.5 rounded-md border border-border text-xs flex items-center gap-1.5 text-primary font-medium">
               <ShieldCheck className="size-4 text-brand" />
-              <span>Dimensionamento Técnico CBE</span>
+              <span>Foto Real • Montagem CBE</span>
             </div>
           </div>
 
