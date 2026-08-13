@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import bancadaMontagemFabrica from "@/assets/cbe/bancada-montagem-fabrica.jpg";
-import heroQuadros from "@/assets/hero-quadros.jpg";
+import bgArcoBrand from "@/assets/cbe/bg-arco-brand.png";
 
 export const Route = createFileRoute("/sobre-nos")({
   head: () => ({
@@ -31,8 +31,13 @@ function SobreNos() {
   return (
     <SiteLayout>
       {/* Hero da página */}
-      <section className="scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
+        {/* Marca D'água Sutil com o Arco da Marca CBE */}
+        <div className="absolute -right-24 top-0 w-96 sm:w-[600px] opacity-[0.05] pointer-events-none select-none z-0">
+          <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div {...fadeInUp} className="grid gap-8 lg:grid-cols-12 items-center">
             <div className="lg:col-span-7 space-y-4">
               <span className="eyebrow">Institucional</span>

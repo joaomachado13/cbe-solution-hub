@@ -14,6 +14,8 @@ import bancadaMontagemFabrica from "@/assets/cbe/bancada-montagem-fabrica.jpg";
 import quadroQdfResidencialReal from "@/assets/cbe/quadro-qdf-residencial-real.jpg";
 import quadroComercialBarramento from "@/assets/cbe/quadro-comercial-barramento.jpg";
 
+import bgArcoBrand from "@/assets/cbe/bg-arco-brand.png";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -324,8 +326,13 @@ function Index() {
       </section>
 
       {/* 6. Seção "Por que a CBE não vende quadros prontos" */}
-      <section className="scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
+        {/* Marca D'água Sutil com o Arco da Marca CBE */}
+        <div className="absolute -right-20 top-1/2 -translate-y-1/2 w-96 sm:w-[550px] opacity-[0.06] pointer-events-none select-none z-0">
+          <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div {...fadeInUp} className="grid gap-8 lg:grid-cols-12 items-center">
             <div className="lg:col-span-6 space-y-4">
               <span className="eyebrow">Engenharia Sem Atalhos</span>
