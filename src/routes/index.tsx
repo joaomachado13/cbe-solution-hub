@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import logoCbe from "@/assets/logo-cbe.png";
@@ -73,8 +73,8 @@ function Index() {
 
   return (
     <SiteLayout>
-      {/* 1. Hero com Slideshow de Fotos de Fundo, Logo Centralizada e Sem Badge */}
-      <section id="hero" className="relative scroll-mt-20 overflow-hidden bg-slate-950 text-white min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center">
+      {/* 1. Hero com Slideshow de Fotos de Fundo, Logo Transparente Ampliada no Centro e Sem Header por cima */}
+      <section id="hero" className="relative scroll-mt-20 overflow-hidden bg-slate-950 text-white min-h-[90vh] sm:min-h-[95vh] flex flex-col justify-center">
         {/* Carrossel de Fotos de Fundo com Crossfade */}
         <div className="absolute inset-0 z-0">
           <AnimatePresence mode="wait">
@@ -95,24 +95,24 @@ function Index() {
           </AnimatePresence>
 
           {/* Camada de Gradiente Escuro para Alta Legibilidade */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/50" />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/65 to-slate-950/40" />
+          <div className="absolute inset-0 bg-black/35" />
         </div>
 
         {/* Conteúdo Centralizado do Hero */}
-        <div className="relative z-10 mx-auto max-w-5xl px-4 py-16 sm:py-24 text-center">
+        <div className="relative z-10 mx-auto max-w-5xl px-4 py-12 sm:py-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            {/* Logo da Empresa em Destaque no Centro */}
-            <div className="inline-block p-3 sm:p-4 bg-white/95 rounded-2xl shadow-2xl backdrop-blur-md border border-white/20">
+            {/* Logo Transparente da Empresa Ampliada no Centro (Sem Caixa Branca) */}
+            <div className="inline-block">
               <img
                 src={logoCbe}
                 alt="Corrêa Barbosa Engenharia"
-                className="h-12 sm:h-16 md:h-20 w-auto object-contain"
+                className="h-20 sm:h-28 md:h-36 w-auto object-contain filter drop-shadow-2xl mx-auto"
               />
             </div>
 
@@ -158,7 +158,7 @@ function Index() {
           </motion.div>
         </div>
 
-        {/* Indicadores de Slide e Rolagem */}
+        {/* Indicadores de Slide */}
         <div className="relative z-10 pb-6 flex items-center justify-center gap-2">
           {HERO_SLIDES.map((_, i) => (
             <button

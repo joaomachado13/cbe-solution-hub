@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoCbe from "@/assets/logo-cbe.png";
@@ -15,10 +15,13 @@ const NAV = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 120) {
+      if (window.scrollY > 300) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -29,28 +32,27 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Se for a Home e não tiver feito scroll, oculta totalmente o header da tela do Hero conforme pedido
+  const hideOnHero = isHome && !scrolled;
+
   return (
     <header
-      className={`sticky top-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-border bg-background/95 backdrop-blur shadow-xs text-foreground"
-          : "border-b border-white/10 bg-gradient-to-b from-black/80 via-black/50 to-transparent text-white"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        hideOnHero
+          ? "opacity-0 pointer-events-none -translate-y-4"
+          : "opacity-100 translate-y-0 border-b border-border bg-background/95 backdrop-blur shadow-xs text-foreground"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+      <div className="mx-auto flex h-18 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link
           to="/"
-          className={`flex items-center gap-3 py-1 transition-all duration-300 ${
-            scrolled ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[-4px] pointer-events-none md:opacity-100 md:pointer-events-auto"
-          }`}
+          className="flex items-center gap-3 py-1"
           onClick={() => setOpen(false)}
         >
           <img
             src={logoCbe}
             alt="Corrêa Barbosa Engenharia"
-            className={`h-9 sm:h-10 w-auto object-contain transition-all duration-300 ${
-              scrolled ? "" : "bg-white/95 rounded px-2 py-0.5 shadow-sm"
-            }`}
+            className="h-11 sm:h-13 w-auto object-contain"
           />
         </Link>
 
@@ -59,15 +61,9 @@ export function Header() {
             <Link
               key={item.to}
               to={item.to}
-              className={`border-b-2 border-transparent pb-0.5 text-sm font-medium transition-colors hover:border-brand ${
-                scrolled
-                  ? "text-foreground hover:text-primary"
-                  : "text-white/90 hover:text-white"
-              }`}
+              className="border-b-2 border-transparent pb-0.5 text-sm font-medium text-foreground transition-colors hover:border-brand hover:text-primary"
               activeProps={{
-                className: `border-b-2 border-brand pb-0.5 text-sm font-semibold ${
-                  scrolled ? "text-primary" : "text-white font-bold"
-                }`,
+                className: "border-b-2 border-brand pb-0.5 text-sm font-semibold text-primary",
               }}
               activeOptions={{ exact: true }}
             >
@@ -76,14 +72,8 @@ export function Header() {
           ))}
         </nav>
 
-        <div
-          className={`hidden md:block transition-all duration-300 ${
-            scrolled
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-[-4px] pointer-events-none"
-          }`}
-        >
-          <Button asChild size="lg" className="h-10 px-5 text-sm font-semibold shadow-xs">
+        <div className="hidden md:block">
+          <Button asChild size="lg" className="h-11 px-6 text-sm font-semibold shadow-xs">
             <Link to="/orcamento">Solicitar orçamento</Link>
           </Button>
         </div>
@@ -92,9 +82,7 @@ export function Header() {
           type="button"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           onClick={() => setOpen((v) => !v)}
-          className={`inline-flex h-10 w-10 items-center justify-center rounded-md transition-colors md:hidden ${
-            scrolled ? "text-primary" : "text-white bg-black/30 backdrop-blur-sm"
-          }`}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md text-primary md:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
