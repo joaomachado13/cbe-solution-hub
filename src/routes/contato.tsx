@@ -30,7 +30,7 @@ function Contato() {
   return (
     <SiteLayout>
       {/* Canais de Contato */}
-      <section className="scroll-mt-20 border-b border-border bg-background py-12 sm:py-16">
+      <section className="scroll-mt-20 border-b border-border bg-background pt-24 sm:pt-28 pb-12 sm:pb-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div {...fadeInUp} className="text-left mb-8 sm:mb-10">
             <span className="eyebrow">Atendimento Direto</span>

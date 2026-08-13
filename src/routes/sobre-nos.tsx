@@ -31,7 +31,7 @@ function SobreNos() {
   return (
     <SiteLayout>
       {/* Hero da página */}
-      <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
+      <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-surface pt-24 sm:pt-28 pb-12 sm:pb-16">
         {/* Marca D'água Sutil com o Arco da Marca CBE */}
         <div className="absolute -right-24 top-0 w-96 sm:w-[600px] opacity-[0.05] pointer-events-none select-none z-0">
           <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />

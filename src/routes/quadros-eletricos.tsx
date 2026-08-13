@@ -1,8 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { ProductRollShowcase } from "@/components/ui/ProductRollShowcase";
-import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/quadros-eletricos")({
   head: () => ({
@@ -25,26 +24,21 @@ function QuadrosEletricos() {
 
   return (
     <SiteLayout>
-      <section className="scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
+      <section className="pt-24 sm:pt-28 pb-12 sm:pb-16 border-b border-border bg-surface">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border pb-6 mb-8 sm:mb-10"
+            className="border-b border-border pb-6 mb-8 sm:mb-10"
           >
-            <div>
-              <span className="eyebrow">Catálogo Técnico</span>
-              <h1 className="mt-2 font-display text-3xl font-semibold text-primary sm:text-4xl">
-                Quadros Elétricos Sob Medida
-              </h1>
-              <p className="mt-3 max-w-2xl text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Navegue pelas categorias abaixo para comparar cada modelo, consultar a ficha técnica detalhada e solicitar sua cotação.
-              </p>
-            </div>
-            <Button asChild size="lg" className="w-full sm:w-auto px-6 text-sm font-semibold h-11">
-              <Link to="/orcamento">Solicitar orçamento</Link>
-            </Button>
+            <span className="eyebrow">Catálogo Técnico</span>
+            <h1 className="mt-2 font-display text-3xl font-semibold text-primary sm:text-4xl">
+              Quadros Elétricos Sob Medida
+            </h1>
+            <p className="mt-3 max-w-2xl text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              Navegue pelas categorias abaixo para comparar cada modelo, consultar a ficha técnica detalhada e solicitar sua cotação.
+            </p>
           </motion.div>
 
           <ProductRollShowcase onSelectCategory={handleSelectCategory} />

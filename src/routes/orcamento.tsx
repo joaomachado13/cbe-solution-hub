@@ -158,7 +158,7 @@ function Orcamento() {
 
   return (
     <SiteLayout>
-      <section className="scroll-mt-20 border-b border-border bg-background py-12 sm:py-16">
+      <section className="scroll-mt-20 border-b border-border bg-background pt-24 sm:pt-28 pb-12 sm:pb-16">
         <div ref={formRef} className="mx-auto max-w-4xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}

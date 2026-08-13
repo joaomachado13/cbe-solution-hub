@@ -111,12 +111,12 @@ function Index() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            {/* Logo Transparente da Empresa Ampliada no Centro (Sem Caixa Branca) */}
-            <div className="inline-block">
+            {/* Logo da Empresa em Placa Branca Cristalina para Contraste Perfeito */}
+            <div className="inline-block px-6 py-4 sm:px-8 sm:py-5 rounded-2xl bg-white/95 backdrop-blur-md shadow-2xl border border-white/30">
               <img
                 src={logoCbe}
                 alt="Corrêa Barbosa Engenharia"
-                className="h-20 sm:h-28 md:h-36 w-auto object-contain filter drop-shadow-2xl mx-auto"
+                className="h-16 sm:h-24 md:h-28 w-auto object-contain mx-auto"
               />
             </div>
 
