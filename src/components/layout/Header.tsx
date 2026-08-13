@@ -44,7 +44,7 @@ export function Header() {
         </nav>
 
         <div className="hidden md:block">
-          <Button asChild size="sm" className="h-10">
+          <Button asChild size="lg" className="h-11 px-6 text-sm font-semibold shadow-xs">
             <Link to="/orcamento">Solicitar orçamento</Link>
           </Button>
         </div>

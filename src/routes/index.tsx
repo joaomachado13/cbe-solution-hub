@@ -46,7 +46,8 @@ function Index() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-7 space-y-5 sm:space-y-6 text-left"
             >
-              <div className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand/5 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brand">
+              <div className="inline-flex items-center gap-2 rounded-md bg-surface border border-border px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-primary shadow-xs">
+                <span className="size-2 rounded-full bg-brand"></span>
                 <span>Corrêa Barbosa Engenharia</span>
               </div>
 
