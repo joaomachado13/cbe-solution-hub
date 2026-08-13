@@ -1,12 +1,14 @@
-import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SITE } from "@/lib/site";
+import logoCbe from "@/assets/logo-cbe.png";
 
 const NAV = [
   { to: "/", label: "Home" },
-  { to: "/quadros-eletricos", label: "Quadros Elétricos" },
+  { to: "/sobre-nos", label: "Sobre Nos" },
+  { to: "/quadros-eletricos", label: "Quadros Eletricos" },
+  { to: "/orcamento", label: "Orcamento" },
   { to: "/contato", label: "Contato" },
 ] as const;
 
@@ -16,13 +18,12 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link to="/" className="flex items-baseline gap-2" onClick={() => setOpen(false)}>
-          <span className="font-display text-2xl font-semibold leading-none text-primary">
-            CBE
-          </span>
-          <span className="hidden border-l border-brand pl-2 text-xs leading-tight text-muted-foreground sm:block">
-            {SITE.fullName}
-          </span>
+        <Link to="/" className="flex items-center gap-3 py-1" onClick={() => setOpen(false)}>
+          <img
+            src={logoCbe}
+            alt="Correa Barbosa Engenharia"
+            className="h-9 sm:h-10 w-auto object-contain"
+          />
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
@@ -31,8 +32,11 @@ export function Header() {
               key={item.to}
               to={item.to}
               className="border-b-2 border-transparent pb-0.5 text-sm font-medium text-foreground transition-colors hover:border-brand hover:text-primary"
-              activeProps={{ className: "border-brand text-primary" }}
-              activeOptions={{ exact: item.to === "/" }}
+              activeProps={{
+                className:
+                  "border-b-2 border-brand pb-0.5 text-sm font-medium text-primary transition-colors",
+              }}
+              activeOptions={{ exact: true }}
             >
               {item.label}
             </Link>
@@ -41,7 +45,7 @@ export function Header() {
 
         <div className="hidden md:block">
           <Button asChild size="sm">
-            <Link to="/contato">Solicitar orçamento</Link>
+            <Link to="/orcamento">Solicitar orcamento</Link>
           </Button>
         </div>
 
@@ -64,15 +68,15 @@ export function Header() {
                 to={item.to}
                 onClick={() => setOpen(false)}
                 className="border-b border-border py-3 text-sm font-medium text-foreground"
-                activeProps={{ className: "text-primary" }}
-                activeOptions={{ exact: item.to === "/" }}
+                activeProps={{ className: "border-b border-border py-3 text-sm font-medium text-primary" }}
+                activeOptions={{ exact: true }}
               >
                 {item.label}
               </Link>
             ))}
             <Button asChild className="my-4">
-              <Link to="/contato" onClick={() => setOpen(false)}>
-                Solicitar orçamento
+              <Link to="/orcamento" onClick={() => setOpen(false)}>
+                Solicitar orcamento
               </Link>
             </Button>
           </nav>

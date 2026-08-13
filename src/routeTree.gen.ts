@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as OrcamentoRouteImport } from './routes/orcamento'
 import { Route as QuadrosEletricosRouteImport } from './routes/quadros-eletricos'
+import { Route as SobreNosRouteImport } from './routes/sobre-nos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +25,65 @@ const ContatoRoute = ContatoRouteImport.update({
   path: '/contato',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrcamentoRoute = OrcamentoRouteImport.update({
+  id: '/orcamento',
+  path: '/orcamento',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuadrosEletricosRoute = QuadrosEletricosRouteImport.update({
   id: '/quadros-eletricos',
   path: '/quadros-eletricos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreNosRoute = SobreNosRouteImport.update({
+  id: '/sobre-nos',
+  path: '/sobre-nos',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/orcamento': typeof OrcamentoRoute
   '/quadros-eletricos': typeof QuadrosEletricosRoute
+  '/sobre-nos': typeof SobreNosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/orcamento': typeof OrcamentoRoute
   '/quadros-eletricos': typeof QuadrosEletricosRoute
+  '/sobre-nos': typeof SobreNosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/orcamento': typeof OrcamentoRoute
   '/quadros-eletricos': typeof QuadrosEletricosRoute
+  '/sobre-nos': typeof SobreNosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contato' | '/quadros-eletricos'
+  fullPaths:
+    '/' | '/contato' | '/orcamento' | '/quadros-eletricos' | '/sobre-nos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contato' | '/quadros-eletricos'
-  id: '__root__' | '/' | '/contato' | '/quadros-eletricos'
+  to: '/' | '/contato' | '/orcamento' | '/quadros-eletricos' | '/sobre-nos'
+  id:
+    | '__root__'
+    | '/'
+    | '/contato'
+    | '/orcamento'
+    | '/quadros-eletricos'
+    | '/sobre-nos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContatoRoute: typeof ContatoRoute
+  OrcamentoRoute: typeof OrcamentoRoute
   QuadrosEletricosRoute: typeof QuadrosEletricosRoute
+  SobreNosRoute: typeof SobreNosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +102,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContatoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/orcamento': {
+      id: '/orcamento'
+      path: '/orcamento'
+      fullPath: '/orcamento'
+      preLoaderRoute: typeof OrcamentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quadros-eletricos': {
       id: '/quadros-eletricos'
       path: '/quadros-eletricos'
       fullPath: '/quadros-eletricos'
       preLoaderRoute: typeof QuadrosEletricosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre-nos': {
+      id: '/sobre-nos'
+      path: '/sobre-nos'
+      fullPath: '/sobre-nos'
+      preLoaderRoute: typeof SobreNosRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +129,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContatoRoute: ContatoRoute,
+  OrcamentoRoute: OrcamentoRoute,
   QuadrosEletricosRoute: QuadrosEletricosRoute,
+  SobreNosRoute: SobreNosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
