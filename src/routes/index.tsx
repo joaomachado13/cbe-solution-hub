@@ -111,12 +111,12 @@ function Index() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            {/* Logo da Empresa em Placa Branca Cristalina para Contraste Perfeito */}
-            <div className="inline-block px-6 py-4 sm:px-8 sm:py-5 rounded-2xl bg-white/95 backdrop-blur-md shadow-2xl border border-white/30">
+            {/* Logo da Empresa em Placa Escura de Vidro (Slate Dark Glass) com Brilho Contornativo */}
+            <div className="relative inline-block px-7 py-4 sm:px-10 sm:py-5 rounded-2xl bg-slate-950/85 backdrop-blur-xl border border-white/20 border-t-2 border-t-brand/80 shadow-2xl">
               <img
                 src={logoCbe}
                 alt="Corrêa Barbosa Engenharia"
-                className="h-16 sm:h-24 md:h-28 w-auto object-contain mx-auto"
+                className="h-16 sm:h-24 md:h-28 w-auto object-contain mx-auto brightness-110 drop-shadow-[0_0_12px_rgba(255,255,255,0.9)] drop-shadow-[0_0_4px_rgba(255,255,255,0.95)]"
               />
             </div>
 
