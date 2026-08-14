@@ -159,7 +159,7 @@ function Index() {
         </div>
       </section>
 
-      {/* 2. A Essência da CBE (com foto da Bancada Real de Montagem) */}
+      {/* 2. A Essência da CBE */}
       <section className="scroll-mt-20 border-b border-border bg-background py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div {...fadeInUp} className="grid gap-8 lg:grid-cols-12 items-center">
@@ -194,7 +194,7 @@ function Index() {
         </div>
       </section>
 
-      {/* 3. Pilares de Serviço */}
+      {/* 3. Pilares de Serviço (com Card Azul em Destaque) */}
       <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
         {/* Elemento de Fundo — Arco da Marca CBE */}
         <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-96 sm:w-[580px] opacity-[0.08] pointer-events-none select-none z-0 rotate-180">
@@ -210,53 +210,71 @@ function Index() {
           </motion.div>
 
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-3">
-            <motion.div {...fadeInUp} className="rounded-xl border border-border bg-background p-6 shadow-xs">
-              <h3 className="font-display text-xl font-semibold text-primary">Projeto Sob Medida</h3>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                Cada quadro é dimensionado individualmente a partir do levantamento técnico da instalação: carga real, fator de demanda, corrente de curto-circuito e tipo de partida dos motores.
-              </p>
+            {/* Card Azul em Destaque */}
+            <motion.div {...fadeInUp} className="relative overflow-hidden rounded-2xl bg-primary text-white p-6 shadow-xl border border-primary/30 flex flex-col justify-between">
+              <div className="absolute -right-8 -bottom-8 w-40 opacity-15 pointer-events-none">
+                <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+              </div>
+              <div className="relative z-10">
+                <h3 className="font-display text-xl font-bold text-white">Projeto Sob Medida</h3>
+                <p className="mt-3 text-sm text-white/90 leading-relaxed">
+                  Cada quadro é dimensionado individualmente a partir do levantamento técnico da instalação: carga real, fator de demanda, corrente de curto-circuito e tipo de partida dos motores.
+                </p>
+              </div>
             </motion.div>
 
-            <motion.div {...fadeInUp} className="rounded-xl border border-border bg-background p-6 shadow-xs">
-              <h3 className="font-display text-xl font-semibold text-primary">Montagem & Testes</h3>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                Montagem em fábrica com anilhamento rigoroso, barramentos de cobre eletrolítico dimensionados e testes de continuidade, isolação e funcionamento antes da entrega.
-              </p>
+            <motion.div {...fadeInUp} className="rounded-2xl border border-border bg-background p-6 shadow-xs flex flex-col justify-between">
+              <div>
+                <h3 className="font-display text-xl font-semibold text-primary">Montagem & Testes</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                  Montagem em fábrica com anilhamento rigoroso, barramentos de cobre eletrolítico dimensionados e testes de continuidade, isolação e funcionamento antes da entrega.
+                </p>
+              </div>
             </motion.div>
 
-            <motion.div {...fadeInUp} className="rounded-xl border border-border bg-background p-6 shadow-xs">
-              <h3 className="font-display text-xl font-semibold text-primary">Suporte Pós-Entrega</h3>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                Acompanhamento técnico na instalação, start-up e primeiro funcionamento. Suporte continuado para ajustes, ampliação de circuitos e manutenção preventiva.
-              </p>
+            <motion.div {...fadeInUp} className="rounded-2xl border border-border bg-background p-6 shadow-xs flex flex-col justify-between">
+              <div>
+                <h3 className="font-display text-xl font-semibold text-primary">Suporte Pós-Entrega</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                  Acompanhamento técnico na instalação, start-up e primeiro funcionamento. Suporte continuado para ajustes, ampliação de circuitos e manutenção preventiva.
+                </p>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* 4. Banner CTA */}
-      <section className="scroll-mt-20 border-b border-border bg-primary py-12 sm:py-14">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
-          <motion.div {...fadeInUp}>
-            <h2 className="font-display text-xl sm:text-3xl font-semibold text-primary-foreground">
+      {/* 4. Banner CTA em Azul Oficial com Botões Nítidos */}
+      <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-primary py-14 sm:py-16 text-white">
+        {/* Marca d'água do Arco da Marca */}
+        <div className="absolute -right-16 top-1/2 -translate-y-1/2 w-96 sm:w-[650px] opacity-15 pointer-events-none select-none z-0">
+          <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 text-center">
+          <motion.div {...fadeInUp} className="space-y-4">
+            <h2 className="font-display text-2xl sm:text-4xl font-bold text-white tracking-tight">
               Está iniciando um novo projeto elétrico?
             </h2>
-            <p className="mt-3 text-xs sm:text-sm text-primary-foreground/80 max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-white/90 max-w-xl mx-auto font-normal">
               Nossa equipe de engenharia está pronta para dimensionar o quadro ideal para a sua instalação. Atendimento direto, sem intermediários.
             </p>
-            <div className="mt-6">
-              <Button asChild size="lg" variant="secondary" className="h-12 px-8 text-sm font-semibold w-full sm:w-auto">
-                <Link to="/orcamento">
-                  Solicitar orçamento agora
+            <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+              <Button asChild size="lg" className="h-12 px-8 text-sm font-bold bg-white text-primary hover:bg-slate-100 shadow-lg w-full sm:w-auto">
+                <Link to="/contato">
+                  Fale com a Engenharia
                   <ArrowRight className="size-4 ml-2" />
                 </Link>
+              </Button>
+              <Button asChild size="lg" className="h-12 px-8 text-sm font-bold bg-brand text-brand-foreground hover:bg-brand/90 shadow-lg w-full sm:w-auto">
+                <Link to="/orcamento">Solicitar orçamento agora</Link>
               </Button>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* 5. Teaser de Produtos (com fotos reais) */}
+      {/* 5. Teaser de Produtos */}
       <section className="scroll-mt-20 border-b border-border bg-background py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
@@ -353,10 +371,11 @@ function Index() {
             </div>
 
             <div className="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4">
-              <div className="p-4 sm:p-5 rounded-xl border border-border bg-background shadow-xs space-y-1.5">
-                <p className="font-display text-2xl sm:text-3xl font-bold text-brand">100%</p>
-                <p className="text-xs font-semibold text-primary">Sob Medida</p>
-                <p className="text-[11px] sm:text-xs text-muted-foreground">Dimensionamento para a carga real do projeto</p>
+              {/* Card Azul em Destaque */}
+              <div className="p-4 sm:p-5 rounded-xl bg-primary text-white shadow-md border border-primary/30 space-y-1.5">
+                <p className="font-display text-2xl sm:text-3xl font-bold text-white">100%</p>
+                <p className="text-xs font-bold text-white">Sob Medida</p>
+                <p className="text-[11px] sm:text-xs text-white/90">Dimensionamento para a carga real do projeto</p>
               </div>
 
               <div className="p-4 sm:p-5 rounded-xl border border-border bg-background shadow-xs space-y-1.5">

@@ -49,21 +49,22 @@ function Contato() {
           </motion.div>
 
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-            <motion.div {...fadeInUp} className="group flex flex-col justify-between rounded-xl border border-border bg-surface p-5 shadow-xs transition-all duration-300 hover:border-primary/50 hover:shadow-md">
-              <div className="space-y-3">
-                <div className="w-fit p-3 rounded-lg bg-primary/10 text-primary">
+            {/* Card Azul em Destaque — WhatsApp Engenharia */}
+            <motion.div {...fadeInUp} className="group relative overflow-hidden flex flex-col justify-between rounded-xl bg-primary text-white p-5 shadow-xl border border-primary/30 transition-all duration-300 hover:shadow-2xl">
+              <div className="space-y-3 relative z-10">
+                <div className="w-fit p-3 rounded-lg bg-white/10 text-white backdrop-blur-md">
                   <WhatsAppIcon className="size-6" />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-display text-lg font-semibold text-primary">WhatsApp Engenharia</h3>
-                  <p className="text-xs text-muted-foreground">Atendimento direto e envio de arquivos</p>
+                  <h3 className="font-display text-lg font-bold text-white">WhatsApp Engenharia</h3>
+                  <p className="text-xs text-white/90">Atendimento direto e envio de arquivos</p>
                 </div>
               </div>
               <a
                 href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block pt-3 text-sm font-semibold text-primary hover:underline"
+                className="relative z-10 inline-block pt-3 text-sm font-bold text-white hover:underline"
               >
                 {SITE.whatsappNumberFormatted}
               </a>

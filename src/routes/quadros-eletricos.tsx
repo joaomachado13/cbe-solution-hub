@@ -1,5 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { ProductRollShowcase } from "@/components/ui/ProductRollShowcase";
 import bgArcoBrand from "@/assets/cbe/bg-arco-brand.png";
@@ -48,6 +50,35 @@ function QuadrosEletricos() {
           </motion.div>
 
           <ProductRollShowcase onSelectCategory={handleSelectCategory} />
+        </div>
+      </section>
+
+      {/* Card Azul de CTA ao final do Catálogo */}
+      <section className="relative overflow-hidden bg-primary py-14 sm:py-16 text-white border-b border-border">
+        <div className="absolute -left-16 top-1/2 -translate-y-1/2 w-96 sm:w-[600px] opacity-15 pointer-events-none select-none z-0 rotate-180">
+          <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 text-center">
+          <div className="space-y-4">
+            <h2 className="font-display text-2xl sm:text-4xl font-bold text-white tracking-tight">
+              Precisa de um modelo específico de quadro elétrico?
+            </h2>
+            <p className="text-sm sm:text-base text-white/90 max-w-xl mx-auto font-normal">
+              Nossa equipe de engenharia analisa seu projeto executivo ou diagramas unifilares para montar o orçamento exato.
+            </p>
+            <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+              <Button asChild size="lg" className="h-12 px-8 text-sm font-bold bg-white text-primary hover:bg-slate-100 shadow-lg w-full sm:w-auto">
+                <Link to="/contato">
+                  Fale com a Engenharia
+                  <ArrowRight className="size-4 ml-2" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" className="h-12 px-8 text-sm font-bold bg-brand text-brand-foreground hover:bg-brand/90 shadow-lg w-full sm:w-auto">
+                <Link to="/orcamento">Solicitar orçamento agora</Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
     </SiteLayout>

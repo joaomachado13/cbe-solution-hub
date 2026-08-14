@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import bancadaMontagemFabrica from "@/assets/cbe/bancada-montagem-fabrica.jpg";
@@ -33,7 +33,7 @@ function SobreNos() {
       {/* Hero da página */}
       <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-surface pt-24 sm:pt-28 pb-12 sm:pb-16">
         {/* Marca D'água Sutil com o Arco da Marca CBE */}
-        <div className="absolute -right-24 top-0 w-96 sm:w-[600px] opacity-[0.05] pointer-events-none select-none z-0">
+        <div className="absolute -right-24 top-0 w-96 sm:w-[600px] opacity-[0.08] pointer-events-none select-none z-0">
           <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
         </div>
 
@@ -64,36 +64,64 @@ function SobreNos() {
         </div>
       </section>
 
-      {/* Missão / Visão / Valores */}
+      {/* Missão e Valores com Card Azul em Destaque */}
       <section className="scroll-mt-20 border-b border-border bg-background py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-            <span className="eyebrow">Nossos Princípios</span>
-            <h2 className="rule-brand justify-center font-display text-2xl sm:text-3xl font-semibold text-primary">
-              Missão, Visão e Valores
+          <motion.div {...fadeInUp} className="text-left mb-8 sm:mb-10">
+            <span className="eyebrow">Diretrizes</span>
+            <h2 className="rule-brand font-display text-2xl sm:text-3xl font-semibold text-primary">
+              Nossa Filosofia de Trabalho
             </h2>
           </motion.div>
 
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-3">
-            <motion.div {...fadeInUp} className="rounded-xl border border-border bg-surface p-6 shadow-xs">
-              <h3 className="font-display text-xl font-semibold text-primary">Missão</h3>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                Projetar e entregar quadros elétricos sob medida com excelência técnica, segurança e atendimento personalizado, contribuindo para a eficiência energética das instalações dos nossos clientes.
-              </p>
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
+            {/* Card Azul Em Destaque */}
+            <motion.div {...fadeInUp} className="relative overflow-hidden rounded-2xl bg-primary text-primary-foreground p-6 shadow-xl border border-primary/30 flex flex-col justify-between">
+              <div className="absolute -right-10 -bottom-10 w-48 opacity-15 pointer-events-none">
+                <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+              </div>
+              <div className="relative z-10 space-y-3">
+                <div className="w-fit p-3 rounded-lg bg-white/10 text-white backdrop-blur-md">
+                  <ShieldCheck className="size-6" />
+                </div>
+                <h3 className="font-display text-xl font-bold text-white">Engenharia Rigorosa</h3>
+                <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
+                  Não utilizamos peças genéricas. Cada barramento e componente é dimensionado para suportar correntes de pico com total segurança.
+                </p>
+              </div>
+              <div className="relative z-10 pt-4 mt-4 border-t border-white/20 text-xs font-semibold text-white/80">
+                100% Norma ABNT
+              </div>
             </motion.div>
 
-            <motion.div {...fadeInUp} className="rounded-xl border border-border bg-surface p-6 shadow-xs">
-              <h3 className="font-display text-xl font-semibold text-primary">Visão</h3>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                Ser referência regional em engenharia de quadros elétricos sob medida, reconhecida pela qualidade técnica, pontualidade nas entregas e compromisso com normas de segurança.
-              </p>
+            <motion.div {...fadeInUp} className="rounded-2xl border border-border bg-surface p-6 shadow-xs flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-fit p-3 rounded-lg bg-primary/10 text-primary">
+                  <CheckCircle2 className="size-6" />
+                </div>
+                <h3 className="font-display text-xl font-semibold text-primary">Transparência & Entrega</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  Projetos detalhados e acompanhamento direto do cliente do primeiro desenho até os testes finais de bancada.
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-border text-xs font-semibold text-primary">
+                Acompanhamento Direto
+              </div>
             </motion.div>
 
-            <motion.div {...fadeInUp} className="rounded-xl border border-border bg-surface p-6 shadow-xs">
-              <h3 className="font-display text-xl font-semibold text-primary">Valores</h3>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                Rigor técnico, transparência com o cliente, segurança em primeiro lugar, compromisso com prazos e melhoria contínua dos processos de engenharia.
-              </p>
+            <motion.div {...fadeInUp} className="rounded-2xl border border-border bg-surface p-6 shadow-xs flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-fit p-3 rounded-lg bg-primary/10 text-primary">
+                  <CheckCircle2 className="size-6" />
+                </div>
+                <h3 className="font-display text-xl font-semibold text-primary">Suporte Técnico Real</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  Assistência continuada durante a instalação em campo, start-up e dúvidas operacionais do eletricista ou engenheiro.
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-border text-xs font-semibold text-primary">
+                Atendimento em Uberlândia & Região
+              </div>
             </motion.div>
           </div>
         </div>
@@ -149,25 +177,30 @@ function SobreNos() {
         </div>
       </section>
 
-      {/* CTA Final */}
-      <section className="scroll-mt-20 bg-primary py-12 sm:py-14">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
-          <motion.div {...fadeInUp}>
-            <h2 className="font-display text-xl sm:text-3xl font-semibold text-primary-foreground">
+      {/* CTA Final em Card Azul com Botões 100% Visíveis e Nítidos */}
+      <section className="relative overflow-hidden scroll-mt-20 bg-primary py-14 sm:py-16 text-white border-y border-primary-foreground/10">
+        {/* Marca d'água no fundo do card azul */}
+        <div className="absolute -right-16 top-1/2 -translate-y-1/2 w-96 sm:w-[650px] opacity-15 pointer-events-none select-none z-0">
+          <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 text-center">
+          <motion.div {...fadeInUp} className="space-y-4">
+            <h2 className="font-display text-2xl sm:text-4xl font-bold text-white tracking-tight">
               Precisa de um quadro elétrico sob medida?
             </h2>
-            <p className="mt-3 text-xs sm:text-sm text-primary-foreground/80 max-w-xl mx-auto">
-              Fale com nossa equipe de engenharia e receba atendimento técnico personalizado.
+            <p className="text-sm sm:text-base text-white/90 max-w-xl mx-auto font-normal">
+              Fale com nossa equipe de engenharia e receba atendimento técnico personalizado para o seu projeto.
             </p>
-            <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-              <Button asChild size="lg" variant="secondary" className="h-12 px-8 text-sm font-semibold w-full sm:w-auto">
+            <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+              <Button asChild size="lg" className="h-12 px-8 text-sm font-bold bg-white text-primary hover:bg-slate-100 shadow-lg w-full sm:w-auto">
                 <Link to="/contato">
                   Fale conosco
                   <ArrowRight className="size-4 ml-2" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="h-12 px-8 text-sm font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 w-full sm:w-auto">
-                <Link to="/orcamento">Solicitar orçamento</Link>
+              <Button asChild size="lg" className="h-12 px-8 text-sm font-bold bg-brand text-brand-foreground hover:bg-brand/90 shadow-lg w-full sm:w-auto">
+                <Link to="/orcamento">Solicitar orçamento agora</Link>
               </Button>
             </div>
           </motion.div>
