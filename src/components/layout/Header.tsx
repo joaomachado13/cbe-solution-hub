@@ -14,35 +14,9 @@ const NAV = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
-
-  const isHome = location.pathname === "/";
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Se for a Home e não tiver feito scroll, oculta totalmente o header da tela do Hero conforme pedido
-  const hideOnHero = isHome && !scrolled;
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        hideOnHero
-          ? "opacity-0 pointer-events-none -translate-y-4"
-          : "opacity-100 translate-y-0 border-b border-border bg-background/95 backdrop-blur shadow-xs text-foreground"
-      }`}
-    >
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur shadow-xs text-foreground">
       <div className="mx-auto flex h-18 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link
           to="/"

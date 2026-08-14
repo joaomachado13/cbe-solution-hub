@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,8 +21,10 @@ export const Route = createFileRoute("/quadros-eletricos")({
 });
 
 function QuadrosEletricos() {
+  const navigate = useNavigate();
+
   function handleSelectCategory(categoryKey: string) {
-    window.location.href = `/orcamento?categoria=${categoryKey}`;
+    navigate({ to: "/orcamento", search: { categoria: categoryKey } as any });
   }
 
   return (

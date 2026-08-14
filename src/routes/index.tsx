@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/layout/SiteLayout";
-import logoCbe from "@/assets/logo-cbe.png";
 
 import fabricaLinhaQuadros from "@/assets/cbe/fabrica-linha-quadros.jpg";
 import quadroAutoportanteCcm from "@/assets/cbe/quadro-autoportante-ccm.jpg";
@@ -38,23 +37,33 @@ export const Route = createFileRoute("/")({
 const HERO_SLIDES = [
   {
     image: fabricaLinhaQuadros,
+    tag: "Painéis Industriais",
     title: "Quadros Industriais & Subestações de Alta Capacidade",
     caption: "Engenharia de painéis autoportantes e distribuição trifásica sob norma NBR IEC 61439.",
   },
   {
     image: quadroAutoportanteCcm,
+    tag: "Automação & CCM",
     title: "Comando de Motores & Automação com Soft Starters",
     caption: "Painéis autoportantes com inversores de frequência e proteção dedicada Siemens/Schneider.",
   },
   {
     image: anilhamentoBornesTecnico,
+    tag: "Padrão de Montagem",
     title: "Anilhamento Rigoroso & Organização de Fiação",
     caption: "Identificação numérica e bornes organizados em canaletas com tampa perfurada.",
   },
   {
     image: painelSinaleirasComando,
+    tag: "Comando e Sinalização",
     title: "Quadros Comerciais & Painéis de Sinalização",
     caption: "Sinalização de energização por sinaleiras LED e seletores de comando.",
+  },
+  {
+    image: quadroComercialBarramento,
+    tag: "Barramentos de Cobre",
+    title: "Distribuição Trifásica & Barramentos Eletrolíticos",
+    caption: "Barramentos dimensionados para capacidade térmica e corrente de curto-circuito.",
   },
 ];
 
@@ -71,91 +80,177 @@ function Index() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 8000);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? HERO_SLIDES.length - 1 : prev - 1));
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+  };
+
   return (
     <SiteLayout>
-      {/* 1. Hero com Slideshow de Fotos Reais da Fábrica CBE */}
-      <section id="hero" className="relative scroll-mt-20 overflow-hidden bg-slate-950 text-white min-h-[90vh] sm:min-h-[95vh] flex flex-col justify-center">
-        {/* Carrossel de Fotos de Fundo com Crossfade */}
-        <div className="absolute inset-0 z-0">
-          <AnimatePresence mode="wait">
+      {/* 1. Hero Padrão: Layout em 2 Colunas com Showcase de Fotos Reais da CBE */}
+      <section id="hero" className="relative scroll-mt-20 overflow-hidden bg-gradient-to-b from-surface via-background to-background py-10 sm:py-14 lg:py-18 border-b border-border">
+        {/* Marca d'água técnica de fundo */}
+        <div className="absolute right-0 top-0 w-96 sm:w-[500px] opacity-5 pointer-events-none select-none z-0">
+          <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+            
+            {/* Coluna Esquerda: Texto de Apresentação e Chamadas de Ação */}
             <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-              className="absolute inset-0"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center"
             >
-              <img
-                src={HERO_SLIDES[currentSlide].image}
-                alt={HERO_SLIDES[currentSlide].title}
-                className="h-full w-full object-cover"
-              />
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-primary w-fit mb-4">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulse" />
+                Engenharia de Painéis & Quadros Elétricos
+              </div>
+
+              <h1 className="font-display text-3xl font-bold leading-[1.14] text-foreground sm:text-4xl lg:text-[2.75rem] tracking-tight">
+                Cada quadro dimensionado para a <span className="text-primary underline decoration-brand decoration-4 underline-offset-4">carga real</span> da sua instalação
+              </h1>
+
+              <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
+                Engenharia elétrica de alta precisão sem desperdício de materiais ou erros de especificação. Projetamos e montamos quadros industriais, comerciais e prediais sob normas NBR em Uberlândia, MG.
+              </p>
+
+              {/* Botões de Ação */}
+              <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4">
+                <Button asChild size="lg" className="h-12 px-7 text-sm font-semibold shadow-xs bg-brand text-brand-foreground hover:bg-brand/90">
+                  <Link to="/quadros-eletricos">
+                    Ver quadros elétricos
+                    <ArrowRight className="size-4 ml-2" />
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="h-12 px-7 text-sm font-semibold border-border hover:bg-accent hover:text-accent-foreground">
+                  <Link to="/orcamento">Fazer um orçamento</Link>
+                </Button>
+              </div>
+
+              {/* Indicadores de Confiabilidade / Diferenciais Técnicos */}
+              <div className="mt-8 pt-6 border-t border-border grid grid-cols-3 gap-3">
+                <div>
+                  <div className="text-xs font-semibold text-primary flex items-center gap-1">
+                    <ShieldCheck className="size-3.5 text-brand" />
+                    NBR IEC 61439
+                  </div>
+                  <div className="text-[11px] text-muted-foreground mt-0.5">Conformidade e NR-10</div>
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-primary flex items-center gap-1">
+                    <CheckCircle2 className="size-3.5 text-brand" />
+                    100% Testados
+                  </div>
+                  <div className="text-[11px] text-muted-foreground mt-0.5">Ensaios em bancada</div>
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-primary flex items-center gap-1">
+                    <CheckCircle2 className="size-3.5 text-brand" />
+                    Sob Medida
+                  </div>
+                  <div className="text-[11px] text-muted-foreground mt-0.5">Uberlândia e região</div>
+                </div>
+              </div>
             </motion.div>
-          </AnimatePresence>
 
-          {/* Camada de Gradiente Escuro para Alta Legibilidade */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/65 to-slate-950/40" />
-          <div className="absolute inset-0 bg-black/35" />
-        </div>
+            {/* Coluna Direita: Showcase com Fotos Reais da Fábrica CBE */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="lg:col-span-6 xl:col-span-6"
+            >
+              <div className="relative rounded-2xl border border-border bg-card shadow-md overflow-hidden group">
+                
+                {/* Visualizador de Fotos */}
+                <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden bg-slate-950">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentSlide}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="absolute inset-0"
+                    >
+                      <img
+                        src={HERO_SLIDES[currentSlide].image}
+                        alt={HERO_SLIDES[currentSlide].title}
+                        className="h-full w-full object-cover"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
 
-        {/* Conteúdo Centralizado do Hero */}
-        <div className="relative z-10 mx-auto max-w-5xl px-4 py-12 sm:py-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
-          >
-            {/* Logo da Empresa em Placa Escura de Vidro (Slate Dark Glass) com Brilho Contornativo */}
-            <div className="relative inline-block px-7 py-4 sm:px-10 sm:py-5 rounded-2xl bg-slate-950/85 backdrop-blur-xl border border-white/20 border-t-2 border-t-brand/80 shadow-2xl">
-              <img
-                src={logoCbe}
-                alt="Corrêa Barbosa Engenharia"
-                className="h-16 sm:h-24 md:h-28 w-auto object-contain mx-auto brightness-110 drop-shadow-[0_0_12px_rgba(255,255,255,0.9)] drop-shadow-[0_0_4px_rgba(255,255,255,0.95)]"
-              />
-            </div>
+                  {/* Tag Superior: Fotos Reais */}
+                  <div className="absolute top-3 left-3 z-20 flex items-center gap-2 rounded-md bg-slate-950/80 backdrop-blur-md px-2.5 py-1 text-[11px] font-semibold text-white border border-white/10">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+                    {HERO_SLIDES[currentSlide].tag}
+                  </div>
 
-            {/* Título Principal Sem Badge Acima */}
-            <h1 className="font-display text-3xl font-semibold leading-[1.12] text-white sm:text-5xl lg:text-6xl max-w-4xl mx-auto tracking-tight">
-              Cada quadro dimensionado para a carga real da sua instalação
-            </h1>
+                  {/* Botões de Navegação Anterior / Próximo */}
+                  <button
+                    type="button"
+                    onClick={prevSlide}
+                    aria-label="Foto anterior"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 z-20 size-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs transition-opacity opacity-70 hover:opacity-100"
+                  >
+                    <ChevronLeft className="size-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={nextSlide}
+                    aria-label="Próxima foto"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 z-20 size-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs transition-opacity opacity-70 hover:opacity-100"
+                  >
+                    <ChevronRight className="size-4" />
+                  </button>
 
-            <p className="max-w-2xl mx-auto text-sm sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Engenharia elétrica de alta precisão sem desperdício de materiais ou erros de especificação. Quadros industriais, comerciais e prediais projetados sob norma em Uberlândia, MG.
-            </p>
+                  {/* Gradiente e Legenda Técnica no Rodapé da Foto */}
+                  <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent p-4 sm:p-5 pt-10 text-white">
+                    <h3 className="font-display text-sm sm:text-base font-semibold text-white">
+                      {HERO_SLIDES[currentSlide].title}
+                    </h3>
+                    <p className="text-xs text-slate-300 mt-1 line-clamp-2">
+                      {HERO_SLIDES[currentSlide].caption}
+                    </p>
+                  </div>
+                </div>
 
-            {/* Botões de Ação Principais Centrais */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-              <Button asChild size="lg" className="h-13 px-8 text-sm font-semibold shadow-lg bg-brand text-brand-foreground hover:bg-brand/90 w-full sm:w-auto">
-                <Link to="/quadros-eletricos">
-                  Ver quadros elétricos
-                  <ArrowRight className="size-4 ml-2" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="h-13 px-8 text-sm font-semibold bg-white/10 backdrop-blur-md text-white border-white/30 hover:bg-white/20 w-full sm:w-auto">
-                <Link to="/orcamento">Fazer um orçamento</Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
+                {/* Barra Inferior com Indicadores de Foto e Rótulo */}
+                <div className="flex items-center justify-between px-4 py-3 bg-surface border-t border-border text-xs">
+                  <span className="font-medium text-muted-foreground text-[11px]">
+                    Fotos reais da fábrica e montagens CBE
+                  </span>
 
-        {/* Indicadores de Slide */}
-        <div className="relative z-10 pb-6 flex items-center justify-center gap-2">
-          {HERO_SLIDES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentSlide(i)}
-              className={`h-2 rounded-full transition-all duration-500 ${
-                i === currentSlide ? "w-8 bg-brand" : "w-2 bg-white/40 hover:bg-white/70"
-              }`}
-              aria-label={`Ir para slide ${i + 1}`}
-            />
-          ))}
+                  {/* Indicadores / Dots */}
+                  <div className="flex items-center gap-1.5">
+                    {HERO_SLIDES.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCurrentSlide(i)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          i === currentSlide ? "w-5 bg-brand" : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+                        }`}
+                        aria-label={`Ir para foto ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
