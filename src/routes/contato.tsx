@@ -49,22 +49,21 @@ function Contato() {
           </motion.div>
 
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-            {/* Card Azul em Destaque — WhatsApp Engenharia */}
-            <motion.div {...fadeInUp} className="group relative overflow-hidden flex flex-col justify-between rounded-xl bg-primary text-white p-5 shadow-xl border border-primary/30 transition-all duration-300 hover:shadow-2xl">
-              <div className="space-y-3 relative z-10">
-                <div className="w-fit p-3 rounded-lg bg-white/10 text-white backdrop-blur-md">
+            <motion.div {...fadeInUp} className="group flex flex-col justify-between rounded-xl border border-border bg-surface p-5 shadow-xs transition-all duration-300 hover:border-primary/50 hover:shadow-md">
+              <div className="space-y-3">
+                <div className="w-fit p-3 rounded-lg bg-primary/10 text-primary">
                   <WhatsAppIcon className="size-6" />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-display text-lg font-bold text-white">WhatsApp Engenharia</h3>
-                  <p className="text-xs text-white/90">Atendimento direto e envio de arquivos</p>
+                  <h3 className="font-display text-lg font-semibold text-primary">WhatsApp Engenharia</h3>
+                  <p className="text-xs text-muted-foreground">Atendimento direto e envio de arquivos</p>
                 </div>
               </div>
               <a
                 href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative z-10 inline-block pt-3 text-sm font-bold text-white hover:underline"
+                className="inline-block pt-3 text-sm font-semibold text-primary hover:underline"
               >
                 {SITE.whatsappNumberFormatted}
               </a>
@@ -129,7 +128,7 @@ function Contato() {
         </div>
       </section>
 
-      {/* Localização e Matriz */}
+      {/* Localização e Matriz — Mapa com Pin Exato no Bairro Martins */}
       <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
         {/* Elemento de Fundo — Arco da Marca Invertido */}
         <div className="absolute -left-20 -bottom-10 w-96 sm:w-[600px] opacity-[0.08] pointer-events-none select-none z-0 rotate-180">
@@ -146,18 +145,20 @@ function Contato() {
               <div className="flex items-start gap-3 pt-2 text-sm text-muted-foreground">
                 <MapPin className="size-5 text-primary flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-medium text-foreground">{SITE.addressFull}</p>
-                  <p className="mt-1 text-xs">{SITE.cityState}</p>
-                  <p className="mt-2 text-xs text-muted-foreground">Atendimento com horário agendado para projetos industriais e comerciais.</p>
+                  <p className="font-semibold text-primary">{SITE.addressFull}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Bairro Martins, Uberlândia - MG</p>
+                  <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
+                    Atendimento com horário agendado para apresentação de projetos executivos, especificações e acompanhamento de testes em fábrica.
+                  </p>
                 </div>
               </div>
             </div>
 
             <div className="lg:col-span-7">
-              <div className="overflow-hidden rounded-xl border border-border shadow-xs bg-background h-[320px] relative">
+              <div className="overflow-hidden rounded-xl border border-border shadow-xs bg-background h-[340px] relative">
                 <iframe
-                  title="Mapa de Localização da CBE Engenharia em Uberlândia"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3774.283189914447!2d-48.2435!3d-18.9186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDU1JzA3LjAiUyA0OMKwMTQnMzYuNiJX!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"
+                  title="Mapa de Localização da CBE Engenharia - Bairro Martins"
+                  src={`https://maps.google.com/maps?q=${SITE.latitude},${SITE.longitude}&z=17&output=embed`}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

@@ -194,7 +194,7 @@ function Index() {
         </div>
       </section>
 
-      {/* 3. Pilares de Serviço (com Card Azul em Destaque) */}
+      {/* 3. Pilares de Serviço */}
       <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
         {/* Elemento de Fundo — Arco da Marca CBE */}
         <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-96 sm:w-[580px] opacity-[0.08] pointer-events-none select-none z-0 rotate-180">
@@ -210,20 +210,16 @@ function Index() {
           </motion.div>
 
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-3">
-            {/* Card Azul em Destaque */}
-            <motion.div {...fadeInUp} className="relative overflow-hidden rounded-2xl bg-primary text-white p-6 shadow-xl border border-primary/30 flex flex-col justify-between">
-              <div className="absolute -right-8 -bottom-8 w-40 opacity-15 pointer-events-none">
-                <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
-              </div>
-              <div className="relative z-10">
-                <h3 className="font-display text-xl font-bold text-white">Projeto Sob Medida</h3>
-                <p className="mt-3 text-sm text-white/90 leading-relaxed">
+            <motion.div {...fadeInUp} className="rounded-xl border border-border bg-background p-6 shadow-xs flex flex-col justify-between">
+              <div>
+                <h3 className="font-display text-xl font-semibold text-primary">Projeto Sob Medida</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
                   Cada quadro é dimensionado individualmente a partir do levantamento técnico da instalação: carga real, fator de demanda, corrente de curto-circuito e tipo de partida dos motores.
                 </p>
               </div>
             </motion.div>
 
-            <motion.div {...fadeInUp} className="rounded-2xl border border-border bg-background p-6 shadow-xs flex flex-col justify-between">
+            <motion.div {...fadeInUp} className="rounded-xl border border-border bg-background p-6 shadow-xs flex flex-col justify-between">
               <div>
                 <h3 className="font-display text-xl font-semibold text-primary">Montagem & Testes</h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
@@ -232,7 +228,7 @@ function Index() {
               </div>
             </motion.div>
 
-            <motion.div {...fadeInUp} className="rounded-2xl border border-border bg-background p-6 shadow-xs flex flex-col justify-between">
+            <motion.div {...fadeInUp} className="rounded-xl border border-border bg-background p-6 shadow-xs flex flex-col justify-between">
               <div>
                 <h3 className="font-display text-xl font-semibold text-primary">Suporte Pós-Entrega</h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
@@ -371,11 +367,10 @@ function Index() {
             </div>
 
             <div className="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4">
-              {/* Card Azul em Destaque */}
-              <div className="p-4 sm:p-5 rounded-xl bg-primary text-white shadow-md border border-primary/30 space-y-1.5">
-                <p className="font-display text-2xl sm:text-3xl font-bold text-white">100%</p>
-                <p className="text-xs font-bold text-white">Sob Medida</p>
-                <p className="text-[11px] sm:text-xs text-white/90">Dimensionamento para a carga real do projeto</p>
+              <div className="p-4 sm:p-5 rounded-xl border border-border bg-background shadow-xs space-y-1.5">
+                <p className="font-display text-2xl sm:text-3xl font-bold text-brand">100%</p>
+                <p className="text-xs font-semibold text-primary">Sob Medida</p>
+                <p className="text-[11px] sm:text-xs text-muted-foreground">Dimensionamento para a carga real do projeto</p>
               </div>
 
               <div className="p-4 sm:p-5 rounded-xl border border-border bg-background shadow-xs space-y-1.5">
