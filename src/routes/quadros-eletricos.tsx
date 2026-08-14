@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { ProductRollShowcase } from "@/components/ui/ProductRollShowcase";
+import bgArcoBrand from "@/assets/cbe/bg-arco-brand.png";
 
 export const Route = createFileRoute("/quadros-eletricos")({
   head: () => ({
@@ -24,8 +25,13 @@ function QuadrosEletricos() {
 
   return (
     <SiteLayout>
-      <section className="pt-24 sm:pt-28 pb-12 sm:pb-16 border-b border-border bg-surface">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <section className="relative overflow-hidden pt-24 sm:pt-28 pb-12 sm:pb-16 border-b border-border bg-surface">
+        {/* Elemento de Fundo — Arco da Marca CBE */}
+        <div className="absolute -right-20 top-0 w-96 sm:w-[650px] opacity-[0.08] pointer-events-none select-none z-0">
+          <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}

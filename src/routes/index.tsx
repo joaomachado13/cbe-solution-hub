@@ -195,8 +195,13 @@ function Index() {
       </section>
 
       {/* 3. Pilares de Serviço */}
-      <section className="scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-surface py-12 sm:py-16">
+        {/* Elemento de Fundo — Arco da Marca CBE */}
+        <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-96 sm:w-[580px] opacity-[0.08] pointer-events-none select-none z-0 rotate-180">
+          <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
             <span className="eyebrow">Serviços</span>
             <h2 className="rule-brand justify-center font-display text-2xl sm:text-3xl font-semibold text-primary">

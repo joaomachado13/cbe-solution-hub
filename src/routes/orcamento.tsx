@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { SITE } from "@/lib/site";
+import bgArcoBrand from "@/assets/cbe/bg-arco-brand.png";
 
 type CategoryKey =
   | "residencial"
@@ -158,8 +159,13 @@ function Orcamento() {
 
   return (
     <SiteLayout>
-      <section className="scroll-mt-20 border-b border-border bg-background pt-24 sm:pt-28 pb-12 sm:pb-16">
-        <div ref={formRef} className="mx-auto max-w-4xl px-4 sm:px-6">
+      <section className="relative overflow-hidden scroll-mt-20 border-b border-border bg-background pt-24 sm:pt-28 pb-12 sm:pb-16">
+        {/* Elemento de Fundo — Arco da Marca CBE */}
+        <div className="absolute -right-20 top-0 w-96 sm:w-[650px] opacity-[0.08] pointer-events-none select-none z-0">
+          <img src={bgArcoBrand} alt="" className="w-full h-auto object-contain" />
+        </div>
+
+        <div ref={formRef} className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
